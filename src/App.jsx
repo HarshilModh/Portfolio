@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, AnimatePresence } from 'framer-motion';
-import { 
-  Moon, Sun, Github, Linkedin, Mail, ExternalLink, ChevronDown, 
-  Code, Terminal, Database, Cloud, Cpu, Globe, GraduationCap, 
-  Briefcase, Shield, Box, Server, PenTool, Key, Award, Layers, 
-  MapPin, Calendar, Send, User, MessageSquare, X, 
-  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain 
+import {
+  Moon, Sun, Github, Linkedin, Mail, ExternalLink, ChevronDown,
+  Code, Terminal, Database, Cloud, Cpu, Globe, GraduationCap,
+  Briefcase, Shield, Box, Server, PenTool, Key, Award, Layers,
+  MapPin, Calendar, Send, User, MessageSquare, X,
+  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain, Mic
 } from 'lucide-react';
 import {
   SiJavascript, SiTypescript, SiPython, SiCplusplus, SiGo, SiHtml5, SiCss3,
@@ -24,10 +24,10 @@ const PROFILE = {
   name: "Harshil Modh",
   roles: ["Full Stack Developer"],
   socials: {
-      github: "github.com/HarshilModh",
-      linkedin: "www.linkedin.com/in/harshil-modh-53a62a1a6/",
-      email: "hmodh@stevens.edu",
-      location: "Hoboken, NJ"
+    github: "github.com/HarshilModh",
+    linkedin: "www.linkedin.com/in/harshil-modh-53a62a1a6",
+    email: "hmodh@stevens.edu",
+    location: "Hoboken, NJ"
   }
 };
 
@@ -138,12 +138,17 @@ const TECHNICAL_ARSENAL = [
 const PROJECTS = [
   {
     title: "Vibe Code Editor",
-    tagline: "AI-Powered Cloud IDE",
-    description: "Cloud-native AI-powered IDE with WebContainers and Ollama LLMs for intelligent code completion.",
-    detailedDescription: "A fully functional cloud-based IDE that runs Node.js entirely in the browser using WebContainers. Features include a multi-tab file system, integrated terminal, and AI-powered code suggestions running on local WASM transformers.",
-    tech: ["Next.js", "WebContainers", "Ollama", "Docker"],
+    tagline: "AI-Powered Web IDE",
+    description: "Cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator.",
+    detailedDescription: "Developed a cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator, enabling secure execution of 5+ stacks via WASM isolation.",
+    tech: ["Next.js", "TypeScript", "WebContainers", "Monaco Editor", "Ollama", "NextAuth", "TailwindCSS", "MongoDB", "Docker"],
+    features: [
+      "Developed a cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator, enabling secure execution of 5+ stacks via WASM isolation.",
+      "Integrated AI-powered completions, debugging, and refactoring via Ollama LLMs, accelerating coding workflows by ~30%.",
+      "Designed a scalable developer UI with TailwindCSS, ShadCN, NextAuth, file explorer, and persistent storage in MongoDB."
+    ],
     link: "#",
-    github: "#",
+    github: "https://github.com/HarshilModh/code_with_vibe",
     icon: "code",
     visual: {
       gradient: "from-indigo-900 via-purple-900 to-slate-900",
@@ -151,31 +156,64 @@ const PROJECTS = [
     }
   },
   {
-    title: "DropDrive",
-    tagline: "Secure File Transfer Protocol",
-    description: "Secure file-sharing service with E2E encryption, expiring links, and scalable cloud storage integration.",
-    detailedDescription: "Architected a secure file sharing platform similar to WeTransfer but with enhanced privacy controls. Implements zero-knowledge encryption where files are encrypted client-side before upload. Features scalable AWS S3 storage backend.",
-    tech: ["Next.js", "Drizzle ORM", "Neon DB", "AWS"],
+    title: "Lumina",
+    tagline: "High-Definition Cloud Storage",
+    description: "Next-generation cloud storage platform for visual assets with high-definition rendering and smart tagging.",
+    detailedDescription: "Developed a next-generation cloud storage platform for visual assets with high-definition rendering, smart tagging, hierarchical folders, and a modern glassmorphic dashboard.",
+    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "HeroUI", "Drizzle ORM", "Neon Database", "Clerk Auth", "ImageKit", "PostgreSQL"],
+    features: [
+      "Developed a next-generation cloud storage platform for visual assets with high-definition rendering, smart tagging, hierarchical folders, and a modern glassmorphic dashboard.",
+      "Integrated ImageKit for lightning-fast, edge-cached global delivery, improving image load performance by ~60%.",
+      "Implemented secure file handling with enterprise-grade encryption, OTP-based authentication, favorites, trash system, and restore workflows.",
+      "Engineered a responsive, modern UI with HeroUI and Tailwind CSS, featuring overview analytics, photo galleries, and folder-based navigation."
+    ],
     link: "#",
-    github: "#",
-    icon: "lock",
+    github: "https://github.com/HarshilModh/lumina",
+    icon: "image",
     visual: {
       gradient: "from-emerald-900 via-teal-900 to-slate-900",
-      icon: "lock"
+      icon: "image"
     }
   },
   {
     title: "Stevens Hub",
     tagline: "Campus Social Ecosystem",
     description: "Full-stack student portal featuring Reddit-style forums, course reviews, and OAuth integration.",
-    detailedDescription: "A campus-wide social platform serving 500+ students. Features include anonymous course reviews, real-time chat forums using Socket.io, and an integrated campus map using Google Maps API for building navigation.",
-    tech: ["Node.js", "MongoDB", "Google Maps API", "Express"],
+    detailedDescription: "Spearheaded a full-stack student portal used by 10+ testers, with forums, reviews, and resource directories.",
+    tech: ["Node.js", "Express", "MongoDB", "OAuth", "Role-based Access", "Cloudinary"],
+    features: [
+      "Spearheaded a full-stack student portal used by 10+ testers, with forums, reviews, and resource directories.",
+      "Implemented Google OAuth login and 2FA flows, cutting unauthorized access attempts by ~90% in testing simulations.",
+      "Created Reddit-style forums with rich media, polls, upvotes, reporting, and moderation tools.",
+      "Built searchable course review engine with anonymized submissions, 5-star ratings, and flag/report mechanisms.",
+      "Integrated Google Maps API for building navigation, increasing usability scores in test sessions by ~40%."
+    ],
     link: "#",
-    github: "#",
+    github: "https://github.com/HarshilModh/Duck_Hub",
     icon: "globe",
     visual: {
       gradient: "from-amber-900 via-orange-900 to-slate-900",
       icon: "globe"
+    }
+  },
+  {
+    title: "Interview Master",
+    tagline: "AI Voice Interview Agent",
+    description: "Real-time AI interview platform with bidirectional voice conversations and automated feedback.",
+    detailedDescription: "Architected a real-time AI interview platform with Next.js 14, integrating Vapi.ai and Google Gemini for bidirectional voice conversations with sub-500ms latency.",
+    tech: ["Next.js 14", "TypeScript", "Vapi.ai", "Google Gemini API", "Firebase", "Tailwind CSS", "Zod"],
+    features: [
+      "Architected a real-time AI interview platform with Next.js 14, integrating Vapi.ai and Google Gemini for bidirectional voice conversations with sub-500ms latency.",
+      "Engineered a dynamic interview generation engine that uses LLMs to create role-specific technical questions based on user experience level and tech stack.",
+      "Built an automated feedback pipeline using Gemini 2.0 Flash to analyze transcripts, generating granular performance scores (0-100) and actionable insights.",
+      "Developed a secure, responsive dashboard with Firebase Auth/Firestore, Server Actions, and Shadcn UI to track interview history and analytics."
+    ],
+    link: "#",
+    github: "https://github.com/HarshilModh/interview_App",
+    icon: "mic",
+    visual: {
+      gradient: "from-rose-900 via-pink-900 to-slate-900",
+      icon: "mic"
     }
   }
 ];
@@ -191,20 +229,20 @@ const SkillIcon = ({ icon, className, category }) => {
     case 'js': return <SiJavascript className={className} />;
     case 'ts': return <SiTypescript className={className} />;
     case 'python': return <SiPython className={className} />;
-    case 'java': return <svg viewBox="0 0 24 24" className={className} fill="currentColor"><path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573"/><path d="M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118"/><path d="M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627"/><path d="M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639"/></svg>;
+    case 'java': return <svg viewBox="0 0 24 24" className={className} fill="currentColor"><path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573" /><path d="M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118" /><path d="M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627" /><path d="M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639" /></svg>;
     case 'cpp': return <SiCplusplus className={className} />;
     case 'go': return <SiGo className={className} />;
     case 'html': return <SiHtml5 className={className} />;
     case 'sql': return <Database className={className} />;
-    
+
     // Frontend
     case 'react': return <SiReact className={className} />;
     case 'next': return <SiNextdotjs className={className} />;
     case 'tailwind': return <SiTailwindcss className={className} />;
     case 'bootstrap': return <SiBootstrap className={className} />;
-    case 'shadcn': return <svg viewBox="0 0 24 24" className={className} fill="currentColor"><path d="M20.8 2l-5.6 16.8-3.2-6.4L20.8 2zM3.2 4.4l8.8 4.8-2.4 8.8L3.2 4.4z"/></svg>; 
+    case 'shadcn': return <svg viewBox="0 0 24 24" className={className} fill="currentColor"><path d="M20.8 2l-5.6 16.8-3.2-6.4L20.8 2zM3.2 4.4l8.8 4.8-2.4 8.8L3.2 4.4z" /></svg>;
     case 'three': return <SiThreedotjs className={className} />;
-    
+
     // Backend
     case 'node': return <SiNodedotjs className={className} />;
     case 'express': return <SiExpress className={className} />;
@@ -213,14 +251,14 @@ const SkillIcon = ({ icon, className, category }) => {
     case 'spring': return <SiSpring className={className} />;
     case 'socket': return <SiSocketdotio className={className} />;
     case 'redis': return <SiRedis className={className} />;
-    
+
     // Database
     case 'mongo': return <SiMongodb className={className} />;
     case 'postgres': return <SiPostgresql className={className} />;
     case 'mysql': return <SiMysql className={className} />;
     case 'neon': return <Zap className={className} />;
     case 'firebase': return <SiFirebase className={className} />;
-    
+
     // Cloud/DevOps
     case 'aws': return <SiAmazon className={className} />;
     case 'vercel': return <SiVercel className={className} />;
@@ -228,23 +266,25 @@ const SkillIcon = ({ icon, className, category }) => {
     case 'k8s': return <SiKubernetes className={className} />;
     case 'terraform': return <SiTerraform className={className} />;
     case 'github': return <SiGithubactions className={className} />;
-    
+
     // Tools
     case 'git': return <SiGit className={className} />;
     case 'jest': return <SiJest className={className} />;
     case 'cypress': return <SiCypress className={className} />;
     case 'postman': return <SiPostman className={className} />;
     case 'jira': return <SiJirasoftware className={className} />;
-    
+
     // API/Auth
     case 'graphql': return <SiGraphql className={className} />;
     case 'auth': return <Shield className={className} />;
     case 'jwt': return <Key className={className} />;
     case 'api': return <Globe className={className} />;
     case 'cert': return <Award className={className} />;
-    
+
     // AI/ML
     case 'ai': return <Brain className={className} />;
+    case 'mic': return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
+    case 'image': return <ImageIcon className={className} />;
   }
 
   // Fallback to Lucide Icons based on category
@@ -255,9 +295,9 @@ const SkillIcon = ({ icon, className, category }) => {
     case 'Frontend': return <Code className={className} />;
     case 'Languages': return <Terminal className={className} />;
     case 'AI/ML': return <Cpu className={className} />;
-    case 'Auth': 
+    case 'Auth':
     case 'Security': return <Shield className={className} />;
-    case 'Tools': 
+    case 'Tools':
     case 'Testing': return <PenTool className={className} />;
     case 'API': return <Globe className={className} />;
     case 'Certifications': return <Award className={className} />;
@@ -275,9 +315,9 @@ const HeroHUD = ({ isDark }) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
-    
+
     const resize = () => {
-      if(canvas.parentElement) {
+      if (canvas.parentElement) {
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
       }
@@ -290,16 +330,16 @@ const HeroHUD = ({ isDark }) => {
     const render = () => {
       const width = canvas.width;
       const height = canvas.height;
-      
+
       ctx.clearRect(0, 0, width, height);
-      
+
       const cx = width / 2;
       const cy = height / 2;
 
       const gridColor = isDark ? 'rgba(126, 91, 240, 0.15)' : 'rgba(126, 91, 240, 0.1)';
       ctx.strokeStyle = gridColor;
       ctx.lineWidth = 1;
-      
+
       for (let i = 0; i < 10; i++) {
         ctx.beginPath();
         for (let x = 0; x < width; x += 20) {
@@ -329,14 +369,14 @@ const HeroHUD = ({ isDark }) => {
       ctx.beginPath();
       ctx.arc(0, 0, 220, 0, Math.PI * 2);
       ctx.stroke();
-      
-      for(let i=0; i<3; i++){
+
+      for (let i = 0; i < 3; i++) {
         const angle = (Math.PI * 2 / 3) * i;
         const px = Math.cos(angle) * 220;
         const py = Math.sin(angle) * 220;
         ctx.fillStyle = '#7E5BF0';
         ctx.beginPath();
-        ctx.arc(px, py, 4, 0, Math.PI*2);
+        ctx.arc(px, py, 4, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
@@ -410,7 +450,7 @@ const TypewriterText = ({ texts, wait = 2000 }) => {
   useEffect(() => {
     const handleType = () => {
       const currentText = texts[textIndex];
-      
+
       if (isDeleting) {
         setDisplayText(currentText.substring(0, displayText.length - 1));
         setTypingSpeed(50);
@@ -486,7 +526,7 @@ const CodeTerminal = ({ isDark }) => {
       <div className="p-6 font-mono text-sm leading-relaxed">
         <pre className="text-[#7E5BF0]">
           {displayText}
-          <motion.span 
+          <motion.span
             animate={{ opacity: [0, 1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
             className="inline-block w-2 h-4 bg-[#7E5BF0] ml-1 align-middle"
@@ -508,14 +548,14 @@ const ProjectModal = ({ project, onClose, isDark }) => {
   const textColor = isDark ? 'text-gray-300' : 'text-gray-700';
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
       onClick={onClose}
     >
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
@@ -531,23 +571,31 @@ const ProjectModal = ({ project, onClose, isDark }) => {
 
         <div className="p-8 grid gap-8">
           <div className="grid grid-cols-1">
-              <div className="md:col-span-2 space-y-6">
-                <div>
-                    <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Overview</h3>
-                    <p className={`leading-relaxed ${textColor}`}>{project.detailedDescription || project.description}</p>
-                </div>
-                
-                <div>
-                    <h3 className={`text-lg font-semibold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>Key Technologies</h3>
-                    <div className="flex flex-wrap gap-2">
-                        {project.tech.map(t => (
-                            <span key={t} className={`px-3 py-1 rounded-full text-sm font-mono ${isDark ? 'bg-slate-800 text-[#7E5BF0] border border-[#7E5BF0]/20' : 'bg-indigo-50 text-indigo-600 border border-indigo-100'}`}>
-                                {t}
-                            </span>
-                        ))}
-                    </div>
+            <div className="md:col-span-2 space-y-6">
+              <div>
+                <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Overview</h3>
+                <p className={`leading-relaxed ${textColor} mb-4`}>{project.detailedDescription || project.description}</p>
+
+                {project.features && (
+                  <ul className={`list-disc pl-5 space-y-2 ${textColor}`}>
+                    {project.features.map((feature, idx) => (
+                      <li key={idx}>{feature}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div>
+                <h3 className={`text-lg font-semibold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>Key Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map(t => (
+                    <span key={t} className={`px-3 py-1 rounded-full text-sm font-mono ${isDark ? 'bg-slate-800 text-[#7E5BF0] border border-[#7E5BF0]/20' : 'bg-indigo-50 text-indigo-600 border border-indigo-100'}`}>
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -555,12 +603,12 @@ const ProjectModal = ({ project, onClose, isDark }) => {
             </div>
 
             <div className="space-y-4">
-                <a href={project.link} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#7E5BF0] text-white font-bold hover:opacity-90 transition-all shadow-lg shadow-[#7E5BF0]/25">
-                    <ExternalLink size={18} /> Live Demo
-                </a>
-                <a href={project.github} target="_blank" rel="noreferrer" className={`flex items-center justify-center gap-2 w-full py-3 rounded-lg border font-semibold transition-all ${isDark ? 'border-slate-600 hover:bg-slate-800 text-white' : 'border-gray-300 hover:bg-gray-50 text-gray-900'}`}>
-                    <Github size={18} /> View Code
-                </a>
+              <a href={project.link} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#7E5BF0] text-white font-bold hover:opacity-90 transition-all shadow-lg shadow-[#7E5BF0]/25">
+                <ExternalLink size={18} /> Live Demo
+              </a>
+              <a href={project.github} target="_blank" rel="noreferrer" className={`flex items-center justify-center gap-2 w-full py-3 rounded-lg border font-semibold transition-all ${isDark ? 'border-slate-600 hover:bg-slate-800 text-white' : 'border-gray-300 hover:bg-gray-50 text-gray-900'}`}>
+                <Github size={18} /> View Code
+              </a>
             </div>
           </div>
         </div>
@@ -582,7 +630,7 @@ export default function App() {
   const scrollRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: scrollRef });
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  
+
   const experienceRef = useRef(null);
   const { scrollYProgress: expProgress } = useScroll({
     target: experienceRef,
@@ -591,9 +639,9 @@ export default function App() {
   const pathLength = useSpring(expProgress, { stiffness: 100, damping: 30 });
 
   const toggleTheme = () => setIsDark(!isDark);
-  
-  const filteredSkills = activeTab === "All" 
-    ? TECHNICAL_ARSENAL.filter(skill => skill.featured) 
+
+  const filteredSkills = activeTab === "All"
+    ? TECHNICAL_ARSENAL.filter(skill => skill.featured)
     : TECHNICAL_ARSENAL.filter(skill => skill.category.includes(activeTab));
 
   const handleInputChange = (e) => {
@@ -604,20 +652,20 @@ export default function App() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormStatus("sending");
-    
+
     // Simulate network delay for effect
     setTimeout(() => {
-        const subject = `Portfolio Contact from ${formData.name}`;
-        const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-        const mailtoLink = `mailto:hmodh@stevens.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        window.location.href = mailtoLink;
-        
-        setFormStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        
-        // Reset status after 5 seconds
-        setTimeout(() => setFormStatus("idle"), 5000);
+      const subject = `Portfolio Contact from ${formData.name}`;
+      const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+      const mailtoLink = `mailto:hmodh@stevens.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailtoLink;
+
+      setFormStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+
+      // Reset status after 5 seconds
+      setTimeout(() => setFormStatus("idle"), 5000);
     }, 1000);
   };
 
@@ -630,7 +678,7 @@ export default function App() {
 
   return (
     <div ref={scrollRef} className={`min-h-screen transition-colors duration-500 ${bgClass} overflow-x-hidden selection:bg-[#7E5BF0] selection:text-white font-sans`}>
-      
+
       <motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-1 bg-[#7E5BF0] origin-left z-50" />
 
       {/* Nav */}
@@ -670,10 +718,10 @@ export default function App() {
               I am a <TypewriterText texts={PROFILE.roles} />
             </h2>
             <h1 className={`text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight ${headingGradient}`}>
-              Harshil<br/>Modh
+              Harshil<br />Modh
             </h1>
             <p className={`text-lg md:text-xl leading-relaxed ${textMuted} mb-10 max-w-lg mx-auto md:mx-0`}>
-              Building scalable cloud solutions and immersive web experiences. 
+              Building scalable cloud solutions and immersive web experiences.
               Merging robust backend architecture with intuitive frontend design.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -694,7 +742,7 @@ export default function App() {
             <CodeTerminal isDark={isDark} />
           </motion.div>
         </div>
-        <motion.div 
+        <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
@@ -706,7 +754,7 @@ export default function App() {
       {/* SKILLS SECTION */}
       <section id="skills" className={`py-24 ${isDark ? 'bg-slate-900/50' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -724,11 +772,10 @@ export default function App() {
               <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeTab === cat 
-                  ? 'bg-[#7E5BF0] text-white shadow-lg shadow-[#7E5BF0]/25' 
-                  : `${isDark ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeTab === cat
+                    ? 'bg-[#7E5BF0] text-white shadow-lg shadow-[#7E5BF0]/25'
+                    : `${isDark ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`
+                  }`}
               >
                 {cat}
               </button>
@@ -764,7 +811,7 @@ export default function App() {
       {/* EXPERIENCE SECTION */}
       <section id="experience" className="py-24 relative overflow-hidden" ref={experienceRef}>
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -776,15 +823,15 @@ export default function App() {
           <div className="relative">
             <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] transform md:-translate-x-1/2">
               <div className={`w-full h-full ${isDark ? 'bg-slate-800' : 'bg-gray-200'}`} />
-              <motion.div 
+              <motion.div
                 style={{ height: useTransform(pathLength, [0, 1], ["0%", "100%"]) }}
                 className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#7E5BF0] via-purple-500 to-[#7E5BF0]"
               />
             </div>
             <div className="space-y-20">
               {EXPERIENCE_DATA.map((item, index) => (
-                <motion.div 
-                  key={item.id} 
+                <motion.div
+                  key={item.id}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -792,7 +839,7 @@ export default function App() {
                   className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} gap-10 items-center`}
                 >
                   <div className={`absolute left-[-5px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#7E5BF0] ${isDark ? 'bg-slate-950' : 'bg-white'} z-20`}>
-                    <motion.div 
+                    <motion.div
                       animate={{ scale: [1, 1.5, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
                       className="w-full h-full rounded-full bg-[#7E5BF0] opacity-50"
@@ -801,16 +848,16 @@ export default function App() {
                   <div className={`hidden md:block absolute top-1/2 w-1/2 h-[2px] ${index % 2 === 0 ? 'left-1/2 origin-left' : 'right-1/2 origin-right'} bg-[#7E5BF0]/20`} />
                   <div className="md:w-1/2 w-full pl-8 md:pl-0">
                     <TiltCard className={`p-8 rounded-2xl border ${cardClass} relative group`}>
-                       <div className="absolute -left-2 top-1/2 w-2 h-8 bg-[#7E5BF0] rounded-r-md transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute -left-2 top-1/2 w-2 h-8 bg-[#7E5BF0] rounded-r-md transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       <div className="flex flex-col gap-2 mb-4">
                         <h3 className="text-xl font-bold">{item.role}</h3>
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                            <span className={`flex items-center gap-1 font-medium ${isDark ? 'text-indigo-300' : 'text-[#7E5BF0]'}`}>
-                                <Briefcase size={14}/> {item.organization}
-                            </span>
-                            <span className={`flex items-center gap-1 ${textMuted}`}>
-                                <Calendar size={14}/> {item.period}
-                            </span>
+                          <span className={`flex items-center gap-1 font-medium ${isDark ? 'text-indigo-300' : 'text-[#7E5BF0]'}`}>
+                            <Briefcase size={14} /> {item.organization}
+                          </span>
+                          <span className={`flex items-center gap-1 ${textMuted}`}>
+                            <Calendar size={14} /> {item.period}
+                          </span>
                         </div>
                       </div>
                       <p className={`text-sm leading-relaxed mb-6 ${textMuted}`}>
@@ -836,7 +883,7 @@ export default function App() {
       {/* EDUCATION SECTION */}
       <section id="education" className={`py-24 ${isDark ? 'bg-slate-900/30' : 'bg-gray-50'}`}>
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -892,7 +939,7 @@ export default function App() {
       {/* PROJECTS SECTION - TEXT DRIVEN */}
       <section id="projects" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -902,7 +949,7 @@ export default function App() {
             <div className="h-1 w-20 bg-[#7E5BF0] mx-auto rounded-full" />
             <p className={`mt-4 ${textMuted}`}>A showcase of technical solutions and creative engineering.</p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {PROJECTS.map((project, i) => (
               <motion.div
@@ -911,22 +958,26 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <div 
+                <div
                   onClick={() => setSelectedProject(project)}
                   className={`group relative flex flex-col h-full p-6 rounded-2xl border cursor-pointer transition-all duration-300 overflow-hidden ${isDark ? 'bg-slate-900/50 border-slate-800 hover:bg-slate-800 hover:border-[#7E5BF0]/30' : 'bg-white border-gray-200 hover:border-[#7E5BF0]/30 hover:shadow-xl'}`}
                 >
-                   {/* Abstract Icon Watermark */}
-                   <div className={`absolute -right-6 -top-6 opacity-5 group-hover:opacity-10 transition-opacity duration-500 ${isDark ? 'text-white' : 'text-[#7E5BF0]'}`}>
-                      {project.icon === 'code' && <Code size={200} />}
-                      {project.icon === 'lock' && <Lock size={200} />}
-                      {project.icon === 'globe' && <Globe size={200} />}
-                   </div>
+                  {/* Abstract Icon Watermark */}
+                  <div className={`absolute -right-6 -top-6 opacity-5 group-hover:opacity-10 transition-opacity duration-500 ${isDark ? 'text-white' : 'text-[#7E5BF0]'}`}>
+                    {project.icon === 'code' && <Code size={200} />}
+                    {project.icon === 'lock' && <Lock size={200} />}
+                    {project.icon === 'globe' && <Globe size={200} />}
+                    {project.icon === 'image' && <ImageIcon size={200} />}
+                    {project.icon === 'mic' && <Mic size={200} />}
+                  </div>
 
                   <div className="flex items-start justify-between mb-4 relative z-10">
                     <div className={`p-3 rounded-lg ${isDark ? 'bg-[#7E5BF0]/20 text-[#7E5BF0]' : 'bg-[#7E5BF0]/10 text-[#7E5BF0]'}`}>
                       {project.icon === 'code' && <Code size={24} />}
                       {project.icon === 'lock' && <Lock size={24} />}
                       {project.icon === 'globe' && <Globe size={24} />}
+                      {project.icon === 'image' && <ImageIcon size={24} />}
+                      {project.icon === 'mic' && <Mic size={24} />}
                     </div>
                     <ExternalLink size={18} className={`${textMuted} group-hover:text-[#7E5BF0] transition-colors`} />
                   </div>
@@ -934,9 +985,9 @@ export default function App() {
                   <h3 className={`text-xl font-bold mb-2 relative z-10 group-hover:text-[#7E5BF0] transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {project.title}
                   </h3>
-                  
+
                   <p className={`text-xs font-mono mb-4 relative z-10 ${textMuted}`}>{project.tagline}</p>
-                  
+
                   <p className={`text-sm leading-relaxed mb-6 line-clamp-3 relative z-10 ${textMuted}`}>
                     {project.description}
                   </p>
@@ -965,7 +1016,7 @@ export default function App() {
       {/* CONTACT SECTION */}
       <section id="contact" className={`py-24 ${isDark ? 'bg-slate-900/50' : 'bg-gray-50'}`}>
         <div className="max-w-4xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -1016,14 +1067,14 @@ export default function App() {
                   <label className={`block text-sm font-medium mb-1 ${textMuted}`}>Identity Code (Name)</label>
                   <div className="relative">
                     <User className={`absolute left-3 top-3 ${textMuted}`} size={18} />
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`} 
-                      placeholder="Jane Doe" 
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`}
+                      placeholder="Jane Doe"
                     />
                   </div>
                 </div>
@@ -1031,14 +1082,14 @@ export default function App() {
                   <label className={`block text-sm font-medium mb-1 ${textMuted}`}>Return Signal (Email)</label>
                   <div className="relative">
                     <Mail className={`absolute left-3 top-3 ${textMuted}`} size={18} />
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`} 
-                      placeholder="jane@example.com" 
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`}
+                      placeholder="jane@example.com"
                     />
                   </div>
                 </div>
@@ -1046,19 +1097,19 @@ export default function App() {
                   <label className={`block text-sm font-medium mb-1 ${textMuted}`}>Transmission Data (Message)</label>
                   <div className="relative">
                     <MessageSquare className={`absolute left-3 top-3 ${textMuted}`} size={18} />
-                    <textarea 
+                    <textarea
                       name="message"
-                      rows={4} 
+                      rows={4}
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`} 
-                      placeholder="Project details..." 
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg outline-none border focus:ring-2 focus:ring-[#7E5BF0]/50 transition-all ${inputClass}`}
+                      placeholder="Project details..."
                     />
                   </div>
                 </div>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={formStatus === "sending"}
                   className={`w-full py-3 rounded-lg text-white font-bold transition-all flex justify-center items-center gap-2 shadow-lg ${formStatus === "sending" ? 'bg-gray-400 cursor-not-allowed' : formStatus === "success" ? 'bg-green-500' : 'bg-[#7E5BF0] hover:opacity-90 shadow-[#7E5BF0]/25'}`}
                 >
@@ -1098,11 +1149,11 @@ export default function App() {
       {/* GLOBAL MODAL */}
       <AnimatePresence>
         {selectedProject && (
-            <ProjectModal 
-                project={selectedProject} 
-                onClose={() => setSelectedProject(null)} 
-                isDark={isDark} 
-            />
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            isDark={isDark}
+          />
         )}
       </AnimatePresence>
 
