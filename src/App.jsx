@@ -5,7 +5,7 @@ import {
   Code, Terminal, Database, Cloud, Cpu, Globe, GraduationCap,
   Briefcase, Shield, Box, Server, PenTool, Key, Award, Layers,
   MapPin, Calendar, Send, User, MessageSquare, X,
-  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain, Mic
+  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain, Mic, Activity
 } from 'lucide-react';
 import {
   SiJavascript, SiTypescript, SiPython, SiCplusplus, SiGo, SiHtml5, SiCss3,
@@ -136,6 +136,29 @@ const TECHNICAL_ARSENAL = [
 
 // SIMPLIFIED PROJECT DATA (No Images)
 const PROJECTS = [
+  {
+    title: "CareConnect",
+    tagline: "Comprehensive Caregiving Platform",
+    description: "Real-time communication, task tracking, and health monitoring for families and professionals.",
+    detailedDescription: "Designed and developed a comprehensive MERN-stack caregiving platform facilitating seamless coordination between families, professional caregivers, and care recipients through real-time communication, task tracking, and health monitoring.",
+    tech: ["React.js", "Node.js", "Express", "MongoDB", "Redis", "Firebase", "AWS (S3, EC2)", "Socket.io", "Tailwind CSS"],
+    features: [
+      "Real-Time Coordination: Engineered a real-time messaging system using Socket.io and Redis for instant family-caregiver communication.",
+      "Health & Vitals Monitoring: Built interactive data visualization dashboards using Recharts to track vital signs with trend analysis.",
+      "Advanced Task Management: Implemented a robust task scheduling system with Node-cron for intelligent reminders.",
+      "Emergency Response System: Developed a 'Panic Button' feature triggering immediate alerts via Nodemailer and Firebase.",
+      "Secure Document Storage: Integrated AWS S3 for scalable storage of medical records using presigned URLs.",
+      "Authentication & Security: Implemented RBAC secured via Firebase Authentication (Google OAuth & Email/Password).",
+      "Performance & Deployment: Deployed on AWS EC2 with Nginx, optimizing frontend performance with Vite."
+    ],
+    link: "#",
+    github: "https://github.com/HarshilModh/Care_Connect",
+    icon: "activity",
+    visual: {
+      gradient: "from-blue-900 via-cyan-900 to-slate-900",
+      icon: "activity"
+    }
+  },
   {
     title: "Vibe Code Editor",
     tagline: "AI-Powered Web IDE",
@@ -284,6 +307,7 @@ const SkillIcon = ({ icon, className, category }) => {
     // AI/ML
     case 'ai': return <Brain className={className} />;
     case 'mic': return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
+    case 'activity': return <Activity className={className} />;
     case 'image': return <ImageIcon className={className} />;
   }
 
@@ -773,8 +797,8 @@ export default function App() {
                 key={cat}
                 onClick={() => setActiveTab(cat)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeTab === cat
-                    ? 'bg-[#7E5BF0] text-white shadow-lg shadow-[#7E5BF0]/25'
-                    : `${isDark ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`
+                  ? 'bg-[#7E5BF0] text-white shadow-lg shadow-[#7E5BF0]/25'
+                  : `${isDark ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`
                   }`}
               >
                 {cat}
@@ -969,6 +993,7 @@ export default function App() {
                     {project.icon === 'globe' && <Globe size={200} />}
                     {project.icon === 'image' && <ImageIcon size={200} />}
                     {project.icon === 'mic' && <Mic size={200} />}
+                    {project.icon === 'activity' && <Activity size={200} />}
                   </div>
 
                   <div className="flex items-start justify-between mb-4 relative z-10">
@@ -978,6 +1003,7 @@ export default function App() {
                       {project.icon === 'globe' && <Globe size={24} />}
                       {project.icon === 'image' && <ImageIcon size={24} />}
                       {project.icon === 'mic' && <Mic size={24} />}
+                      {project.icon === 'activity' && <Activity size={24} />}
                     </div>
                     <ExternalLink size={18} className={`${textMuted} group-hover:text-[#7E5BF0] transition-colors`} />
                   </div>
