@@ -5,7 +5,7 @@ import {
   Code, Terminal, Database, Cloud, Cpu, Globe, GraduationCap,
   Briefcase, Shield, Box, Server, PenTool, Key, Award, Layers,
   MapPin, Calendar, Send, User, MessageSquare, X,
-  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain, Mic, Activity
+  Image as ImageIcon, Play, ZoomIn, ArrowRight, Lock, Layout, Zap, Check, Brain, Mic, Activity, Sparkles, Workflow
 } from 'lucide-react';
 import {
   SiJavascript, SiTypescript, SiPython, SiCplusplus, SiGo, SiHtml5, SiCss3,
@@ -14,7 +14,7 @@ import {
   SiMongodb, SiPostgresql, SiMysql, SiFirebase,
   SiAmazon, SiVercel, SiDocker, SiKubernetes, SiTerraform, SiGithubactions,
   SiJest, SiCypress, SiPostman, SiGit, SiJirasoftware,
-  SiGraphql
+  SiGraphql, SiPrisma, SiStripe
 } from 'react-icons/si';
 
 /**
@@ -22,7 +22,7 @@ import {
  */
 const PROFILE = {
   name: "Harshil Modh",
-  roles: ["Full Stack Developer"],
+  roles: ["Full Stack Developer", "AI Software Engineer"],
   socials: {
     github: "github.com/HarshilModh",
     linkedin: "www.linkedin.com/in/harshil-modh-53a62a1a6",
@@ -132,10 +132,35 @@ const TECHNICAL_ARSENAL = [
   { name: "Clerk", category: "Auth", icon: "auth", color: "text-purple-400", featured: false },
   { name: "Oracle Java SE", category: "Certifications", icon: "java", color: "text-red-500", featured: false },
   { name: "Postman Expert", category: "Certifications", icon: "postman", color: "text-orange-500", featured: false },
+  { name: "Prisma", category: "Database", icon: "prisma", color: "text-emerald-500", featured: true },
+  { name: "Stripe", category: "Tools", icon: "stripe", color: "text-indigo-400", featured: false },
+  { name: "Google Gemini", category: "AI/ML", icon: "sparkles", color: "text-blue-400", featured: true },
+  { name: "Inngest", category: "Backend", icon: "workflow", color: "text-orange-400", featured: true },
+  { name: "E2B Sandbox", category: "Cloud/DevOps", icon: "box", color: "text-yellow-500", featured: true },
 ];
 
 // SIMPLIFIED PROJECT DATA (No Images)
 const PROJECTS = [
+  {
+    title: "PromptStudio",
+    tagline: "Agentic AI App Generator",
+    description: "Agentic AI platform that generates and deploys functional Next.js applications from natural language prompts.",
+    detailedDescription: "Built an agentic AI platform that generates and deploys functional Next.js applications from natural language prompts using a agent workflow orchestrated by Inngest and powered by Google Gemini 2.5 Flash.",
+    tech: ["Next.js 15", "React 19", "Inngest", "Google Gemini API", "E2B Sandboxing", "PostgreSQL", "Prisma", "Clerk", "Stripe"],
+    features: [
+      "Built an agentic AI platform that generates and deploys functional Next.js applications from natural language prompts using a agent workflow orchestrated by Inngest and powered by Google Gemini 2.5 Flash.",
+      "Engineered a tool-using autonomous code agent capable of iteratively writing, executing shell commands, and debugging multi-file apps inside secure E2B cloud sandboxes with live preview streaming.",
+      "Designed time-travel versioning architecture using PostgreSQL + Prisma, persisting immutable code fragments to enable rollback and session-based app evolution.",
+      "Implemented Clerk-based authentication, Stripe subscription billing, and PostgreSQL-persistent rate limiting to enforce credit-based generation controls."
+    ],
+    link: "#",
+    github: "https://github.com/HarshilModh/promptStudio",
+    icon: "brain",
+    visual: {
+      gradient: "from-violet-900 via-fuchsia-900 to-slate-900",
+      icon: "brain"
+    }
+  },
   {
     title: "CareConnect",
     tagline: "Comprehensive Caregiving Platform",
@@ -309,6 +334,11 @@ const SkillIcon = ({ icon, className, category }) => {
     case 'mic': return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
     case 'activity': return <Activity className={className} />;
     case 'image': return <ImageIcon className={className} />;
+    case 'prisma': return <SiPrisma className={className} />;
+    case 'stripe': return <SiStripe className={className} />;
+    case 'sparkles': return <Sparkles className={className} />;
+    case 'workflow': return <Workflow className={className} />;
+    case 'box': return <Box className={className} />;
   }
 
   // Fallback to Lucide Icons based on category
@@ -512,12 +542,12 @@ const CodeTerminal = ({ isDark }) => {
   const [displayText, setDisplayText] = useState('');
   const fullCode = `const developer = {
   name: "Harshil Modh",
-  role: "Full Stack Developer",
-  mission: "Building the Future",
+  role: "Software Engineer",
+  mission: "Architecting Intelligence",
   skills: [
-    "Cloud Computing", 
-    "AI Systems", 
-    "Scalable Web Architecture"
+    "Cloud Computing",
+    "AI Systems",
+    "Full Stack Systems"
   ],
   status: "Ready to Deploy"
 };
@@ -745,8 +775,8 @@ export default function App() {
               Harshil<br />Modh
             </h1>
             <p className={`text-lg md:text-xl leading-relaxed ${textMuted} mb-10 max-w-lg mx-auto md:mx-0`}>
-              Building scalable cloud solutions and immersive web experiences.
-              Merging robust backend architecture with intuitive frontend design.
+              Engineering autonomous AI agents and scalable cloud solutions.
+              Merging advanced backend architecture with intuitive, immersive web experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a href="#projects" className="px-8 py-3 bg-[#7E5BF0] hover:opacity-90 text-white font-semibold rounded-full transition-all transform hover:scale-105 shadow-lg shadow-[#7E5BF0]/25 text-center">
@@ -994,6 +1024,7 @@ export default function App() {
                     {project.icon === 'image' && <ImageIcon size={200} />}
                     {project.icon === 'mic' && <Mic size={200} />}
                     {project.icon === 'activity' && <Activity size={200} />}
+                    {project.icon === 'brain' && <Brain size={200} />}
                   </div>
 
                   <div className="flex items-start justify-between mb-4 relative z-10">
@@ -1004,6 +1035,7 @@ export default function App() {
                       {project.icon === 'image' && <ImageIcon size={24} />}
                       {project.icon === 'mic' && <Mic size={24} />}
                       {project.icon === 'activity' && <Activity size={24} />}
+                      {project.icon === 'brain' && <Brain size={24} />}
                     </div>
                     <ExternalLink size={18} className={`${textMuted} group-hover:text-[#7E5BF0] transition-colors`} />
                   </div>
