@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Download, ArrowRight, BarChart, Terminal as TerminalIcon, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Download, ArrowRight, BarChart, GraduationCap, ShieldCheck } from 'lucide-react';
 import { TypewriterText } from './ui/TypewriterText';
 import { TiltCard } from './ui/TiltCard';
 import { CodeTerminal } from './ui/CodeTerminal';
@@ -172,19 +172,19 @@ export const Hero = ({ isDark, textMuted, headingGradient }) => {
           {/* Proof Chips */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-lg mx-auto lg:mx-0">
             <div className={`glass-card p-5 flex flex-col items-center justify-center group ${isDark ? 'bg-white/[0.03] border-white/10' : ''}`}>
-              <BarChart className="text-primary mb-3 group-hover:scale-110 transition-transform duration-300" size={24} />
-              <span className="font-bold text-xl text-primary">100+</span>
-              <span className="text-xs text-center font-medium opacity-80 mt-1">Students Mentored</span>
-            </div>
-            <div className={`glass-card p-5 flex flex-col items-center justify-center group ${isDark ? 'bg-white/[0.03] border-white/10' : ''}`}>
-               <TerminalIcon className="text-accent-cyan mb-3 group-hover:scale-110 transition-transform duration-300" size={24} />
-               <span className="font-bold text-xl text-accent-cyan">80%</span>
-               <span className="text-xs text-center font-medium opacity-80 mt-1">Faster CI/CD</span>
+               <GraduationCap className="text-accent-cyan mb-3 group-hover:scale-110 transition-transform duration-300" size={24} />
+               <span className="font-bold text-xl text-accent-cyan">3.86</span>
+               <span className="text-xs text-center font-medium opacity-80 mt-1">MSCS GPA</span>
             </div>
             <div className={`glass-card p-5 flex flex-col items-center justify-center group col-span-2 md:col-span-1 ${isDark ? 'bg-white/[0.03] border-white/10' : ''}`}>
                <ShieldCheck className="text-accent-pink mb-3 group-hover:scale-110 transition-transform duration-300" size={24} />
                <span className="font-bold text-xl text-accent-pink">AI/Fullstack</span>
                <span className="text-xs text-center font-medium opacity-80 mt-1">Products Built</span>
+            </div>
+            <div className={`glass-card p-5 flex flex-col items-center justify-center group ${isDark ? 'bg-white/[0.03] border-white/10' : ''}`}>
+              <BarChart className="text-primary mb-3 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <span className="font-bold text-xl text-primary">100+</span>
+              <span className="text-xs text-center font-medium opacity-80 mt-1">Students Mentored</span>
             </div>
           </div>
         </motion.div>
