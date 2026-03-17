@@ -20,21 +20,84 @@ export const NAV_LINKS = [
 export const EXPERIENCE_DATA = [
   {
     id: 1,
-    role: "Teaching Assistant - Web Programming",
+    role: "Teaching Assistant",
     organization: "Stevens Institute of Technology",
-    period: "Sept 2025 - Present",
+    period: "Sep 2025 - Present",
     location: "Hoboken, NJ",
-    description: "Leading office hours for 100+ graduate students. Built CI/CD automated grading pipelines reducing turnaround by 80% and mentored students on scalable web architecture.",
-    tags: ["TypeScript", "Node.js", "Docker", "CI/CD"]
+    description: "Mentor 100+ graduate students in CS 546 (Web Programming), providing guidance on scalable web architectures, secure API design, and advanced debugging strategies for Node.js and React applications. Architected and deployed CI/CD-driven automated grading pipelines, improving grading accuracy by 25% and reducing administrative turnaround time by 80%. Conduct deep technical code reviews to enforce industry best practices in JavaScript, TypeScript, and database design.",
+    tags: ["Node.js", "React", "MongoDB", "CI/CD", "Testing", "Mentorship"]
   },
   {
     id: 2,
+    role: "Peer Mentor",
+    organization: "Stevens Institute of Technology",
+    period: "Sep 2025 - Present",
+    location: "Hoboken, NJ",
+    description: "Mentored students by offering academic support, study strategies, and technical guidance in computer science courses. Helped peers navigate challenging concepts, assignments, and project workflows while promoting best practices in problem solving and collaboration.",
+    tags: ["Academic Support", "Problem Solving", "Collaboration"]
+  },
+  {
+    id: 3,
     role: "Software Engineer Intern",
     organization: "Grownited",
-    period: "July 2023 - Jan 2024",
+    period: "Jul 2023 - Jan 2024",
     location: "India",
-    description: "Contributed to a scalable CRM platform. Optimized MongoDB queries improving latency by 25% and implemented Jest-based test automation workflows.",
-    tags: ["React", "Node.js", "MongoDB", "Jest"]
+    description: "Engineered a scalable CRM platform using React and Node.js, enabling lead tracking and customer profile management for 200+ active users. Developed and secured RESTful APIs and optimized complex MongoDB queries, reducing application latency by 25%. Implemented comprehensive Jest test suites and CI/CD workflows with GitHub Actions.",
+    tags: ["React", "Node.js", "REST APIs", "MongoDB", "Jest", "CI/CD"]
+  },
+  {
+    id: 4,
+    role: "Associate Software Engineer",
+    organization: "Synoptek",
+    period: "Feb 2023 - Jun 2023",
+    location: "India",
+    description: "Collaborated on software development and enterprise-level solutions within an immersive on-site internship environment.",
+    tags: ["Software Engineering", "Enterprise Logic"]
+  },
+  {
+    id: 5,
+    role: "Campus Ambassador",
+    organization: "Tata Consultancy Services",
+    period: "Jun 2022 - Jan 2023",
+    location: "Gandhinagar, Gujarat, India",
+    description: "Acted as a liaison between the university and Tata Consultancy Services, promoting brand initiatives and coordinating campus engagements.",
+    tags: ["Leadership", "Event Management", "Communication"]
+  },
+  {
+    id: 6,
+    role: "Web Developer Co-lead",
+    organization: "Break The Barrier",
+    period: "Jul 2021 - Jan 2023",
+    location: "Gandhinagar, Gujarat, India",
+    description: "Served as Co-lead of the web development team for the Break The Barrier (BTB) Hackathon 2022. Architected and developed the main event portal and frontend infrastructure using React.js.",
+    tags: ["React.js", "Frontend Development", "Team Lead"]
+  },
+  {
+    id: 7,
+    role: "Project Intern",
+    organization: "skylinksoftweb",
+    period: "Apr 2022 - Jun 2022",
+    location: "India",
+    description: "Assisted in project development frameworks while growing core frontend competencies.",
+    tags: ["Web Development", "Frontend"]
+  },
+  {
+    id: 8,
+    role: "Frontend Developer",
+    organization: "Hate Speech and Offensive Content Identification",
+    period: "Jun 2021 - Aug 2021",
+    location: "Gandhinagar, Gujarat, India",
+    description: "Developed the frontend for the international HASOC NLP competition. Initially started as a Data Annotator for English and Hindi languages, later taking ownership of the entire event portal UI using Flask REST APIs, Bootstrap, HTML, and CSS.",
+    tags: ["Flask", "MongoDB", "Bootstrap", "HTML/CSS", "JavaScript"]
+  },
+  {
+    id: 9,
+    role: "Teaching Faculty",
+    organization: "Royal Technosoft Pvt Ltd",
+    period: "Apr 2021 - Jun 2021",
+    location: "Ahmedabad, Gujarat, India",
+    description: "Instructed international students on core software engineering concepts including Object-Oriented Programming (OOP), C++, C, Core Java, and backend web development fundamentals.",
+    tags: ["C++", "Java", "OOP", "Backend Web Development"]
   }
 ];
 
