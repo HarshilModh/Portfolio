@@ -195,7 +195,7 @@ export const PROJECTS = [
       "Time-travel versioning with PostgreSQL + Prisma for rollback and session-based evolution",
       "Clerk authentication, Stripe billing, and credit-based rate limiting"
     ],
-    link: "#",
+    link: "https://prompt-studio-liart.vercel.app/",
     github: "https://github.com/HarshilModh/promptStudio",
     icon: "brain",
     visual: {
@@ -218,7 +218,7 @@ export const PROJECTS = [
       "Emergency 'Panic Button' triggering instant alerts via Nodemailer and Firebase",
       "AWS S3 document storage with presigned URLs and Firebase RBAC security"
     ],
-    link: "#",
+    link: "https://care-connect-five-alpha.vercel.app",
     github: "https://github.com/HarshilModh/Care_Connect",
     icon: "activity",
     visual: {
@@ -308,7 +308,7 @@ export const PROJECTS = [
       "Automated feedback pipeline with granular 0-100 scoring and insights",
       "Secure dashboard with Firebase Auth/Firestore and Server Actions"
     ],
-    link: "#",
+    link: "https://interview-app-virid.vercel.app/",
     github: "https://github.com/HarshilModh/interview_App",
     icon: "mic",
     visual: {
