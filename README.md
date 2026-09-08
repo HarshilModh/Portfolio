@@ -32,4 +32,6 @@ Content was refreshed from the two supplied software engineering resumes. Shared
 
 The project visuals are typographic covers describing each project, not screenshots of application data. Public CareConnect links use the verified care-connect-five-alpha.vercel.app deployment. Motion respects the visitor’s reduced-motion setting.
 
-The skills section appears immediately after the introduction, with brand silhouettes from the installed Simple Icons, Font Awesome, and Tabler icon sets. Skills that describe concepts rather than brands keep their text labels.
+Featured projects appear immediately after a shorter introduction, followed by Experience and Skills. The skills section uses brand silhouettes from the installed Simple Icons, Font Awesome, and Tabler icon sets. Skills that describe concepts rather than brands keep their text labels.
+
+Featured projects are visible together in a responsive gallery, with direct links to details, source, and live apps. The hero retains a short scroll transition and a direct project link; experience and skills stay in normal page flow. The downloadable resume PDF is supplied locally and is excluded from the requested code-only GitHub push.

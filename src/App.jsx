@@ -85,10 +85,10 @@ export default function App() {
       </nav>
       <main id="main">
         <Hero />
+        <Projects />
+        <Experience />
         <TechTicker />
         <Skills />
-        <Experience />
-        <Projects />
         <About />
         <Education />
         <Contact />

@@ -1,4 +1,4 @@
-.hero.hero-scene { display: block; height: 250svh; min-height: 0; padding: 0; position: relative; }
+.hero.hero-scene { display: block; height: 175svh; min-height: 0; padding: 0; position: relative; }
 .hero-scene .hero-scene-pin { position: sticky; top: 70px; height: calc(100svh - 70px); overflow: clip; background: var(--bg); }
 .hero-scene .hero-scene-stage { height: 100%; display: grid; grid-template-rows: 65px minmax(0, 1fr) 72px; }
 .hero-scene-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); gap: 25px; }
@@ -87,6 +87,14 @@
   .hero-opening-bio { font-size: .8125rem; line-height: 1.7; }
   .hero-scene-opening-bottom .scene-scroll-cue { max-width: none; margin-top: 15px; gap: 15px; }
   .hero-scene .scene-name { font-size: 23vw; margin-bottom: 22px; }
+}
+.hero-opening-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-left: 30px; flex-shrink: 0; }
+.hero-project-link { display: inline-flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 5px; background: var(--brand); color: var(--brand-ink); font-size: .8125rem; }
+.hero-opening-actions .scene-scroll-cue { padding: 10px 0; gap: 12px; }
+@media (max-width: 699px) {
+  .hero-opening-actions { flex-direction: row; align-items: center; gap: 18px; margin: 20px 0 0; }
+  .hero-project-link { padding: 12px 13px; font-size: .6875rem; gap: 10px; }
+  .hero-scene-opening-bottom .hero-opening-actions .scene-scroll-cue { margin-top: 0; font-size: .5rem; }
 }
 @media print {
   .hero.hero-scene { height: auto; }

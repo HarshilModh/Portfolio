@@ -1,0 +1,102 @@
+/* The whole collection stays in the document flow; motion never gates a project. */
+.projects-section .section-heading { margin-bottom: 24px; }
+.project-index { display: flex; flex-wrap: wrap; gap: 14px 26px; padding: 0 0 30px; margin-bottom: 35px; border-bottom: 1px solid var(--line); }
+.project-index a { display: inline-flex; align-items: center; gap: 9px; min-height: 36px; font-size: .8125rem; color: var(--muted); }
+.project-index a > span { color: var(--accent); font: .625rem var(--mono); }
+.project-index a > svg { opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
+.project-index a:hover, .project-index a:focus-visible { color: var(--text); }
+.project-index a:hover > svg, .project-index a:focus-visible > svg { opacity: 1; transform: none; }
+.project-gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 64px 38px; }
+.gallery-project { min-width: 0; scroll-margin-top: 110px; display: flex; flex-direction: column; }
+.project-gallery .project-cover { border-radius: 18px; }
+.project-gallery .project-visual { aspect-ratio: 1.85; min-height: 0; padding: 25px 28px; }
+.project-gallery .project-body { padding: 25px 0 0; max-width: none; display: flex; flex-direction: column; flex: 1; }
+.project-gallery .project-meta { margin-bottom: 12px; }
+.project-gallery .project-meta .pill { font-size: .5625rem; padding: 5px 10px; }
+.project-gallery .project-body h3 button { font-size: clamp(1.6rem,2.5vw,2.2rem); }
+.project-gallery .project-body h3 button > svg { width: 22px; }
+.project-gallery .project-body > p { font-size: .9375rem; line-height: 1.7; margin-top: 14px; }
+.project-gallery .project-outcome { font-size: .8125rem; line-height: 1.7; margin-block: 18px; }
+.project-gallery .tags { gap: 7px; margin-bottom: 24px; }
+.project-gallery .tags > span { padding: 4px 10px; font-size: .625rem; }
+.project-gallery .project-actions { margin-top: auto; padding-top: 18px; gap: 18px; }
+.project-gallery .project-actions > div { display: flex; align-items: center; gap: 20px; }
+.project-gallery .project-actions .text-button { font-size: .8125rem; }
+.project-source-link { display: inline-flex; align-items: center; gap: 7px; font-size: .75rem; min-height: 36px; }
+.project-source-link:hover { color: var(--accent); }
+.project-gallery .cover-link { opacity: 1; transform: none; width: 42px; height: 42px; right: 20px; bottom: 20px; background: rgba(255,255,255,.8); color: #151712; backdrop-filter: blur(10px); }
+.gallery-project-lead { grid-column: 1/-1; display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; padding-bottom: 12px; }
+.project-gallery .gallery-project-lead .project-visual { aspect-ratio: 1.45; }
+.project-gallery .gallery-project-lead .project-body { padding-top: 0; }
+.project-gallery .gallery-project-lead .project-body h3 button { font-size: clamp(2.2rem,3.5vw,3.4rem); }
+.project-gallery .gallery-project-lead .project-actions { margin-top: 0; }
+.project-gallery .poster-top { font-size: .5625rem; padding-bottom: 12px; }
+.project-gallery .poster-number { font-size: clamp(7rem,13vw,13rem); }
+.project-gallery .poster-equals { font-size: clamp(5rem,9vw,9rem); }
+.project-gallery .poster-bottom { padding-right: 48px; }
+.project-gallery .poster-bottom > span:first-child { font-size: 1.15rem; }
+.project-gallery .poster-bottom > span:last-child { display: none; }
+.project-gallery .gallery-project:not(.gallery-project-lead) .poster-bottom { display: none; }
+.project-gallery .care-poster-main, .project-gallery .ledger-poster-main { font-size: clamp(2.5rem,4.5vw,4.4rem); padding-bottom: 2px; }
+.visual-studio { background: #b8b0ff; color: #21183f; }
+.visual-editor { background: #b6edfa; color: #142f3b; }
+.new-project-poster { font: 400 clamp(2.5rem,4.3vw,4.2rem)/1.05 var(--display); letter-spacing: -.025em; }
+.new-project-poster > span { display: block; }
+.new-project-poster .poster-italic { font: italic .46em/1.4 Georgia, serif; margin-top: 12px; letter-spacing: -.03em; }
+.project-archive { margin-top: 80px; }
+.project-archive-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.project-archive-heading h3 { font: 400 clamp(1.6rem,3vw,2.5rem)/1.1 var(--display); letter-spacing: -.02em; }
+.project-archive-heading > span { color: var(--muted); font-size: .625rem; white-space: nowrap; }
+.project-archive .archive-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 30px; margin-top: 0; }
+.project-archive .archive-project { grid-template-columns: auto 1fr auto; gap: 12px; padding-block: 26px; }
+.project-archive .archive-project strong { font-size: 1rem; }
+.project-archive .archive-project > span > span { font-size: .75rem; line-height: 1.65; }
+@media (max-width: 1050px) {
+  .gallery-project-lead { gap: 32px; grid-template-columns: 1fr 1fr; }
+  .project-gallery { gap: 48px 28px; }
+  .project-gallery .project-visual { aspect-ratio: 1.5; padding: 21px; }
+  .project-gallery .gallery-project-lead .project-visual { aspect-ratio: auto; min-height: 360px; }
+  .project-gallery .poster-number { font-size: 8rem; }
+  .project-gallery .poster-equals { font-size: 5rem; }
+  .project-gallery .project-actions { flex-wrap: wrap; gap: 8px 20px; }
+  .project-gallery .project-actions > div { gap: 16px; }
+  .project-gallery .project-body > p { font-size: .875rem; }
+  .project-gallery .poster-top > span:last-child { max-width: 130px; text-align: right; }
+  .project-archive .archive-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 699px) {
+  .project-index { gap: 6px 20px; padding-bottom: 22px; margin-bottom: 26px; }
+  .project-index a { font-size: .75rem; gap: 7px; }
+  .project-index a > svg { display: none; }
+  .project-gallery { grid-template-columns: 1fr; gap: 42px; }
+  .gallery-project-lead { display: flex; gap: 0; padding: 0; }
+  .project-gallery .project-visual, .project-gallery .gallery-project-lead .project-visual { aspect-ratio: 1.6; min-height: 0; padding: 22px; }
+  .project-gallery .project-body, .project-gallery .gallery-project-lead .project-body { padding-top: 20px; }
+  .project-gallery .project-body h3 button, .project-gallery .gallery-project-lead .project-body h3 button { font-size: 1.8rem; }
+  .project-gallery .project-body > p { font-size: .875rem; margin-top: 12px; }
+  .project-gallery .project-outcome { margin-block: 15px; }
+  .project-gallery .project-meta { margin-bottom: 9px; }
+  .project-gallery .poster-number { font-size: clamp(6rem,28vw,9rem); }
+  .project-gallery .poster-equals { font-size: 5rem; }
+  .project-gallery .poster-bottom { display: none; }
+  .project-gallery .care-poster-main, .project-gallery .ledger-poster-main, .new-project-poster { font-size: clamp(2.4rem,10vw,4rem); }
+  .new-project-poster .poster-italic { margin-top: 7px; }
+  .project-gallery .poster-top { font-size: .5rem; gap: 12px; }
+  .project-gallery .project-actions { flex-wrap: nowrap; justify-content: space-between; }
+  .project-gallery .project-actions .text-button { gap: 8px; font-size: .75rem; }
+  .project-gallery .project-actions > div { gap: 15px; }
+  .project-source-link { font-size: .6875rem; gap: 6px; }
+  .project-gallery .tags { margin-bottom: 18px; }
+  .project-archive { margin-top: 55px; }
+  .project-archive-heading { align-items: flex-start; }
+  .project-archive-heading h3 { max-width: 12ch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery .project-visual, .project-index a > svg { transition: none; }
+  .project-gallery .project-cover:hover .project-visual { transform: none; }
+}
+@media print {
+  .project-index, .project-gallery .project-cover, .project-gallery .project-actions { display: none; }
+  .project-gallery, .gallery-project-lead { display: block; }
+  .gallery-project { break-inside: avoid; margin-bottom: 25px; }
+}

@@ -3,8 +3,6 @@ import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
 import { ADDITIONAL_EXPERIENCE, EXPERIENCE_DATA } from '../constants/data';
 import { useCountUp } from '../utils/useCountUp';
-import { useScrollScene } from '../utils/useScrollScene';
-import { ScrollChapters } from './ScrollChapters';
 
 // Metrics read like "71K+" or "80%": count the leading number, keep the unit.
 function Metric({ metric }) {
@@ -16,7 +14,6 @@ function Metric({ metric }) {
 }
 
 export function Experience() {
-  const sceneEnabled = useScrollScene();
   const railRef = useRef(null);
   const reducedMotion = useReducedMotion();
   // The rail fills in step with the reader, so the timeline reads as progress rather than decoration.
@@ -30,18 +27,7 @@ export function Experience() {
         <p>Teams I’ve worked with.<br />{' '}Problems I’ve helped solve.</p>
       </div>
 
-      <div ref={railRef}>
-      {sceneEnabled ? <ScrollChapters className="experience-story" label="Experience chapters" chapters={EXPERIENCE_DATA.map((role, index) => ({
-        label: ['GenAI', 'Stevens', 'Grownited'][index],
-        content: <>
-          <div className="chapter-visual"><span className="eyebrow">IMPACT / 0{index + 1}</span><p className="chapter-display"><span className="sr-only">{role.metric}</span><span className="chapter-outline" aria-hidden="true">{role.metric}<span>{role.metric}</span></span></p><p className="chapter-caption">{role.metricLabel}</p></div>
-          <div className="experience-item">
-            <div className="experience-labels"><span className="pill">{role.period}</span>{role.period.includes('Present') && <span className="pill pill-live"><span className="status-dot" /> Current role</span>}</div>
-            <h3>{role.role}</h3><p className="experience-org"><strong>{role.organization}</strong><span className="dot-divider" aria-hidden="true" /><span className="muted"><MapPin size={13} /> {role.location}</span></p>
-            <p className="experience-summary">{role.description}</p><ul className="experience-bullets">{role.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><div className="tags tags-pill">{role.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-          </div>
-        </>
-      }))} /> : <div className="experience-rail">
+      <div className="experience-rail" ref={railRef}>
         <span className="rail" aria-hidden="true"><motion.span className="rail-fill" style={reducedMotion ? undefined : { scaleY }} /></span>
         {EXPERIENCE_DATA.map((role, index) => (
           <article className="experience-item" key={role.id} data-reveal style={{ '--reveal-delay': `${index * 60}ms` }}>
@@ -66,7 +52,6 @@ export function Experience() {
             <div className="tags tags-pill">{role.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
           </article>
         ))}
-      </div>}
       </div>
 
       <details className="earlier-experience" data-reveal>

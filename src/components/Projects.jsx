@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, ExternalLink, Github, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ExternalLink, Github, X } from 'lucide-react';
 import { PROJECTS, PROFILE } from '../constants/data';
-import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
-import { useScrollScene } from '../utils/useScrollScene';
-import './ProjectStory.css';
+import './ProjectGallery.css';
 
 function ProjectVisual({ project }) {
   if (project.title === 'PromptStudio' || project.title === 'Vibe Code Editor') {
@@ -51,61 +49,13 @@ function ProjectBody({ project, index, onOpen }) {
                 <div className="project-outcome">{project.impact}</div>
                 <div className="tags tags-pill">{project.tech.slice(0, 5).map(tech => <span key={tech}>{tech}</span>)}</div>
                 <div className="project-actions">
-                  <button className="text-button" onClick={onOpen}>Inside the project <ArrowRight size={17} /></button>
+                  <button className="text-button" onClick={onOpen}>Project details <ArrowRight size={17} /></button>
                   <div>
-                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="icon-button" aria-label={`View ${project.title} on GitHub`}><Github size={20} /></a>}
-                    {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="icon-button" aria-label={`Open ${project.title} live site`}><ExternalLink size={19} /></a>}
+                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`View ${project.title} on GitHub`}><Github size={16} /><span>Source</span></a>}
+                    {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`Open ${project.title} live site`}><span>Live app</span><ExternalLink size={15} /></a>}
                   </div>
                 </div>
               </div>
-  );
-}
-
-function ProjectPanel({ project, index, count, progress, active, onOpen }) {
-  const start = index / count;
-  const end = (index + 1) / count;
-  const range = index === 0 ? [0, end - 0.045, end + 0.045]
-    : index === count - 1 ? [start - 0.045, start + 0.045, 1]
-    : [start - 0.045, start + 0.045, end - 0.045, end + 0.045];
-  const opacity = useTransform(progress, range, index === 0 ? [1, 1, 0] : index === count - 1 ? [0, 1, 1] : [0, 1, 1, 0]);
-  const y = useTransform(progress, range, index === 0 ? [0, 0, -80] : index === count - 1 ? [80, 0, 0] : [80, 0, 0, -80]);
-  const scale = useTransform(progress, range, index === 0 ? [1, 1, 0.9] : index === count - 1 ? [0.94, 1, 1] : [0.94, 1, 1, 0.9]);
-  const artScale = useTransform(progress, [Math.max(0, start), Math.min(1, end)], [1.04, 1]);
-
-  return (
-    <motion.article className="project-story-panel" style={{ opacity, y, scale }} aria-hidden={!active} inert={active ? undefined : ''}>
-      <motion.div className="project-story-art" style={{ scale: artScale }}><button className="project-cover" onClick={() => onOpen(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} /><span className="cover-link"><ArrowUpRight size={26} /></span></button></motion.div>
-      <ProjectBody project={project} index={index} onOpen={() => onOpen(project)} />
-    </motion.article>
-  );
-}
-
-function ProjectStory({ projects, onOpen }) {
-  const storyRef = useRef(null);
-  const chapterRefs = useRef([]);
-  const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start start', 'end end'] });
-  useMotionValueEvent(scrollYProgress, 'change', value => setActive(Math.min(projects.length - 1, Math.floor(value * projects.length))));
-
-  useEffect(() => {
-    const hiddenPanels = storyRef.current.querySelectorAll('[aria-hidden="true"]');
-    if ([...hiddenPanels].some(panel => panel.contains(document.activeElement))) chapterRefs.current[active]?.focus({ preventScroll: true });
-  }, [active]);
-
-  function goToProject(index) {
-    const story = storyRef.current;
-    const start = story.getBoundingClientRect().top + window.scrollY;
-    const travel = story.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: start + travel * ((index + 0.45) / projects.length), behavior: 'smooth' });
-  }
-
-  return (
-    <div ref={storyRef} className="project-story" style={{ '--story-length': `${projects.length * 115}svh` }}>
-      <div className="project-story-pin">
-        <div className="project-story-panels">{projects.map((project, index) => <ProjectPanel key={project.title} project={project} index={index} count={projects.length} progress={scrollYProgress} active={active === index} onOpen={onOpen} />)}</div>
-        <div className="project-story-controls"><div className="project-chapters" aria-label="Project chapters">{projects.map((project, index) => <button key={project.title} ref={node => { chapterRefs.current[index] = node; }} onClick={() => goToProject(index)} aria-pressed={active === index} aria-label={project.title}><span className="project-chapter-name">{project.title}</span><span className="project-chapter-number" aria-hidden="true">0{index + 1}</span></button>)}</div><span className="project-story-count">0{active + 1} <span>/ 0{projects.length}</span></span><div className="project-story-track" aria-hidden="true"><motion.span style={{ scaleX: scrollYProgress }} /></div></div>
-      </div>
-    </div>
   );
 }
 
@@ -147,7 +97,6 @@ function ProjectDialog({ project, onClose }) {
 
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const sceneEnabled = useScrollScene();
   const featured = PROJECTS.filter(project => project.featured);
   const more = PROJECTS.filter(project => !project.featured);
 
@@ -155,21 +104,22 @@ export function Projects() {
     <section id="projects" className="section projects-section" aria-labelledby="projects-title">
       <div className="container">
         <div className="section-heading" data-reveal>
-          <div><span className="eyebrow section-index">03 / A FEW RECENT PROJECTS</span><h2 id="projects-title">SELECTED WORK<span className="heading-count">({String(featured.length).padStart(2, '0')})</span></h2></div>
-          <p>Built from the ground up.<br />{' '}Here’s what went into them.</p>
+          <div><span className="eyebrow section-index">01 / BUILT FROM THE GROUND UP</span><h2 id="projects-title">SELECTED WORK<span className="heading-count">({String(featured.length).padStart(2, '0')})</span></h2></div>
+          <p>Full-stack products, AI systems,<br />{' '}and tools built to be used.</p>
         </div>
-        {sceneEnabled ? <ProjectStory projects={featured} onOpen={setSelectedProject} /> : <div className="project-stack project-static">
+        <nav className="project-index" aria-label="Jump to a featured project">{featured.map((project, index) => <a key={project.title} href={`#project-${index + 1}`}><span>0{index + 1}</span>{project.title}<ArrowRight size={13} /></a>)}</nav>
+        <div className="project-gallery">
           {featured.map((project, index) => (
-            <article className="project-card" key={project.title}>
-              <button className="project-cover" onClick={() => setSelectedProject(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} /><span className="cover-link"><ArrowUpRight size={26} /></span></button>
+            <article className={`gallery-project ${index === 0 ? 'gallery-project-lead' : ''}`} id={`project-${index + 1}`} key={project.title}>
+              <button className="project-cover" onClick={() => setSelectedProject(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} /><span className="cover-link"><ArrowUpRight size={24} /></span></button>
               <ProjectBody project={project} index={index} onOpen={() => setSelectedProject(project)} />
             </article>
           ))}
-        </div>}
-        <details className="more-projects" data-reveal>
-          <summary><span>THE REST OF THE COLLECTION <span className="count">{more.length}</span></span><ArrowDown size={22} /></summary>
+        </div>
+        <div className="project-archive">
+          <div className="project-archive-heading"><h3>MORE THINGS I’VE BUILT</h3><span className="eyebrow">{String(more.length).padStart(2, '0')} MORE PROJECTS</span></div>
           <div className="archive-grid">{more.map((project, index) => <button className="archive-project" key={project.title} onClick={() => setSelectedProject(project)}><span className="archive-number">{String(index + featured.length + 1).padStart(2, '0')}</span><span><strong>{project.title}</strong><span>{project.tagline}</span></span><ArrowUpRight size={25} /></button>)}</div>
-        </details>
+        </div>
       </div>
       {selectedProject && <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />}
     </section>
