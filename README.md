@@ -1,16 +1,35 @@
-# React + Vite
+# Harshil Modh · Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An editorial software engineering portfolio built with React 18, Vite, Framer Motion, and Lucide icons. The design uses oversized condensed typography, pure white surfaces, crisp black type, a lime accent, full-width project features, and a restrained skills index. Includes a pure white default with a persistent dark theme, project details, experience, education, filterable skills, a downloadable resume, and contact links.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm ci
+npm run dev
+```
 
-## React Compiler
+## Checks and production build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```sh
+npm run lint
+npm run build
+npm run preview
+```
 
-## Expanding the ESLint configuration
+The production site is generated in `dist/`. It can be deployed with the existing static hosting setup or the production Docker image.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Updating content
+
+- Edit `src/constants/data.js` for projects, experience, education, skills, and profile links.
+- Replace `public/Harshil-Modh-Resume.pdf` to update the downloadable resume.
+- Edit `src/index.css` for design tokens, responsive layouts, and theme styles.
+- Keep the canonical and social URLs in `index.html` aligned with the deployed domain.
+
+Project demo and source links are optional. Only add a link when the actual destination is known. The contact form creates a draft through the visitor’s email application; it does not send email or require a backend. The draft remains in the form after submission.
+
+Content was refreshed from the two supplied software engineering resumes. Shared facts use the resume values: GenAI Consulting from January 2026, Grownited from June 2023 to June 2024, and Stevens GPA 3.9/4.0. Existing additional projects and community experience remain available in expandable sections. CoMP Ledger has a contact action because no project-specific repository was provided.
+
+The project visuals are typographic covers describing each project, not screenshots of application data. Public CareConnect links use the verified care-connect-five-alpha.vercel.app deployment. Motion respects the visitor’s reduced-motion setting.
+
+The skills section appears immediately after the introduction, with brand silhouettes from the installed Simple Icons, Font Awesome, and Tabler icon sets. Skills that describe concepts rather than brands keep their text labels.

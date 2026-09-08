@@ -1,157 +1,103 @@
-import React, { useState, useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import {
-  Moon, Sun, Github, Linkedin, Mail, ExternalLink,
-  Code, Globe, GraduationCap, Briefcase, MapPin, Calendar, 
-  Send, User, MessageSquare, X, Image as ImageIcon,
-  Lock, Check, Brain, Mic, Activity
-} from 'lucide-react';
-
-// Data
-import { 
-  PROFILE, NAV_LINKS, TECHNICAL_ARSENAL, EXPERIENCE_DATA, 
-  EDUCATION_DATA, PROJECTS, SKILL_CATEGORIES 
-} from './constants/data';
-
-// Components
-import { SkillIcon } from './utils/SkillIcon';
-import { TiltCard } from './components/ui/TiltCard';
+import { useEffect, useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
+import { NAV_LINKS, PROFILE } from './constants/data';
 import { Hero } from './components/Hero';
+import { TechTicker } from './components/TechTicker';
+import { About } from './components/About';
 import { Projects } from './components/Projects';
-import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
+import { Education } from './components/Education';
+import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
+import { useReveal } from './utils/useReveal';
+import { useScrollScene } from './utils/useScrollScene';
 
-/**
- * MAIN APP COMPONENT
- */
-
-
-/**
- * MAIN APP COMPONENT
- */
 export default function App() {
-  const [isDark, setIsDark] = useState(false); // Default to light mode
-  const [activeTab, setActiveTab] = useState("All");
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [formStatus, setFormStatus] = useState("idle");
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem('portfolio-theme-v3') === 'dark' ? 'dark' : 'light'; }
+    catch { return 'light'; }
+  });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.25 });
+  const sceneEnabled = useScrollScene();
+  useReveal(sceneEnabled ? 'scene' : 'static');
 
-  const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: scrollRef });
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('portfolio-theme-v3', theme); } catch { /* Theme still works when storage is unavailable. */ }
+  }, [theme]);
 
-  const experienceRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) setActiveSection(entry.target.id); });
+    }, { rootMargin: '-15% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, [sceneEnabled]);
 
-  const toggleTheme = () => setIsDark(!isDark);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setFormStatus("sending");
-
-    setTimeout(() => {
-      const subject = `Portfolio Contact from ${formData.name}`;
-      const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-      const mailtoLink = `mailto:${PROFILE.socials.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailtoLink;
-
-      setFormStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-
-      setTimeout(() => setFormStatus("idle"), 5000);
-    }, 1000);
-  };
-
-  const bgClass = isDark ? "bg-background-dark text-white" : "bg-white text-slate-900";
-  const navClass = isDark ? "border-white/5 bg-background-dark/80" : "border-slate-100 bg-white/90 shadow-[0_1px_3px_rgba(0,0,0,0.05)] backdrop-blur-xl";
-  const cardClass = isDark 
-    ? "bg-background-card border-slate-800 shadow-xl shadow-black/20" 
-    : "bg-white border-slate-100 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]";
-  const textMuted = isDark ? "text-slate-400" : "text-slate-500";
-  const headingGradient = isDark 
-    ? "gradient-text-animated animate-text-gradient bg-gradient-to-r from-accent-cyan via-primary to-accent-pink"
-    : "gradient-text-animated animate-text-gradient bg-gradient-to-r from-primary via-[#b95ce4] to-accent-pink";
-  const inputClass = isDark 
-    ? "bg-slate-800/50 border-slate-700 text-white focus:border-primary" 
-    : "bg-slate-50 border-slate-200 text-slate-900 focus:border-primary focus:bg-white shadow-sm";
-
-  // Add dark mode class to html element for tailwind
-  React.useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY < 100) setActiveSection('home');
+      setScrolled(window.scrollY > 14);
+      setPastHero(window.scrollY > 420);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <div ref={scrollRef} className={`min-h-screen transition-colors duration-500 ${bgClass} overflow-x-hidden selection:bg-primary selection:text-white font-sans ${isDark ? 'dark' : ''}`}>
-      {/* Global Noise Overlay for tactile feel */}
-      <div className="noise-bg" />
-
-      <motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-50" />
-
-      {/* Nav */}
-      <nav className={`fixed top-0 w-full z-40 backdrop-blur-md border-b transition-colors duration-500 ${navClass}`}>
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-bold text-xl tracking-tight">HM.</span>
-          <div className="hidden md:flex items-center space-x-8">
-            {NAV_LINKS.map(link => (
-              <a key={link.name} href={link.href} className={`text-sm font-medium hover:text-primary transition-colors ${textMuted}`}>
-                {link.name}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-3">
-              <a href={`https://${PROFILE.socials.github}`} target="_blank" rel="noopener noreferrer" className={`${textMuted} hover:text-primary transition`}><Github size={20} /></a>
-              <a href={`https://${PROFILE.socials.linkedin}`} target="_blank" rel="noopener noreferrer" className={`${textMuted} hover:text-primary transition`}><Linkedin size={20} /></a>
-            </div>
-            <button onClick={toggleTheme} className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'}`}>
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+    <>
+      <div className="ambient" aria-hidden="true" />
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="container header-inner">
+          <a className="brand" href="#home" aria-label="Harshil Modh, home" onClick={() => setMenuOpen(false)}>
+            <span className="brand-mark">HM<span>↗</span></span><span className="brand-name">Harshil Modh<br />{' '}<span>Software engineer</span></span>
+          </a>
+          <nav className={`navigation ${menuOpen ? 'is-open' : ''}`} id="main-navigation" aria-label="Main navigation" onKeyDown={e => { if (e.key === 'Escape') { setMenuOpen(false); document.getElementById('menu-toggle').focus(); } }}>
+            {NAV_LINKS.map(link => <a key={link.href} href={link.href} className={activeSection === link.href.slice(1) ? 'active' : ''} aria-current={activeSection === link.href.slice(1) ? 'location' : undefined} onClick={() => setMenuOpen(false)}>{link.name}</a>)}
+          </nav>
+          <div className="header-actions">
+            <button className="icon-button theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
+            <a className="header-contact" href={`mailto:${PROFILE.socials.email}`}>Get in touch <ArrowUpRight size={16} /></a>
+            <button id="menu-toggle" className="icon-button menu-toggle" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={22} /> : <Menu size={22} />}</button>
           </div>
         </div>
+        <motion.span className="scroll-progress" style={{ scaleX: progress }} aria-hidden="true" />
+      </header>
+      <nav className={`section-rail ${pastHero ? 'is-visible' : ''}`} aria-label="Section shortcuts" aria-hidden={!pastHero} inert={pastHero ? undefined : ''}>
+        {NAV_LINKS.map(link => {
+          const isActive = activeSection === link.href.slice(1);
+          return (
+            <a key={link.href} href={link.href} className={isActive ? 'active' : ''} aria-current={isActive ? 'location' : undefined}>
+              <span className="rail-label">{link.name}</span><span className="rail-dot" />
+            </a>
+          );
+        })}
       </nav>
-
-      <Hero isDark={isDark} textMuted={textMuted} headingGradient={headingGradient} />
-
-      {/* SKILLS SECTION */}
-      <Skills isDark={isDark} textMuted={textMuted} cardClass={cardClass} />
-
-
-      <Experience 
-        isDark={isDark} 
-        textMuted={textMuted} 
-        cardClass={cardClass} 
-        experienceRef={experienceRef} 
-      />
-
-
-      {/* PROJECTS SECTION */}
-      <Projects isDark={isDark} textMuted={textMuted} />
-
-
-      {/* CONTACT SECTION */}
-      <Contact 
-        isDark={isDark} 
-        textMuted={textMuted} 
-        cardClass={cardClass} 
-        inputClass={inputClass} 
-        formData={formData} 
-        handleInputChange={handleInputChange} 
-        handleFormSubmit={handleFormSubmit} 
-        formStatus={formStatus} 
-      />
-
-      {/* GLOBAL MODAL IS NOW INSIDE PROJECTS COMPONENT */}
-
-
-    </div>
+      <main id="main">
+        <Hero />
+        <TechTicker />
+        <Skills />
+        <Experience />
+        <Projects />
+        <About />
+        <Education />
+        <Contact />
+      </main>
+      <footer className="container footer">
+        <a className="brand-mark" href="#home" aria-label="Back to top">HM<span>↗</span></a>
+        <span>© {new Date().getFullYear()} Harshil Modh</span>
+        <a href="#home">Back to top <ArrowUpRight size={16} /></a>
+      </footer>
+    </>
   );
 }
