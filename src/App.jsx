@@ -85,9 +85,9 @@ export default function App() {
       </nav>
       <main id="main">
         <Hero />
+        <TechTicker />
         <Projects />
         <Experience />
-        <TechTicker />
         <Skills />
         <About />
         <Education />
