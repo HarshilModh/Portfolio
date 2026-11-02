@@ -370,6 +370,7 @@ details[open] > summary > svg { transform: rotate(180deg); }
 .education-grid p { font-size: .875rem; line-height: 1.85; }
 .education-grid article > .muted { display: block; font-size: .75rem; margin-top: 8px; }
 .gpa { display: block; color: var(--accent); font: .75rem/1.6 var(--mono); margin-top: 20px; }
+.education-award { display: block; margin-top: 8px; font: .75rem/1.6 var(--mono); color: var(--text); max-width: 34ch; }
 
 /* ============================================================
    11. Projects
@@ -400,8 +401,8 @@ details[open] > summary > svg { transform: rotate(180deg); }
 .poster-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
 .poster-bottom > span:first-child { font-size: clamp(1rem, 1.7vw, 1.4rem); letter-spacing: -.03em; line-height: 1.4; font-weight: 500; }
 .poster-bottom > span:last-child { font: .5625rem/1.75 var(--mono); }
-.visual-pulse { background: #181a12; color: #eef0e6; }
-.visual-pulse .poster-number, .visual-pulse .poster-equals { color: var(--brand); }
+.visual-pulse { background: #d8e6c9; color: #16230d; }
+.visual-pulse .poster-number, .visual-pulse .poster-equals { color: #3f6b0c; }
 .pulse-poster-main { display: flex; justify-content: space-between; align-items: center; padding-block: 15px; }
 .poster-number { font-family: var(--display); font-size: clamp(8rem, 17vw, 16rem); line-height: .98; letter-spacing: -.06em; }
 .poster-equals { font-size: clamp(4rem, 10vw, 10rem); line-height: 1; font-weight: 400; padding-right: 13px; }

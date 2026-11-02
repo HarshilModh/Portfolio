@@ -31,7 +31,7 @@ export function Skills() {
           <div>
             <span className="eyebrow">SIDE PROJECT → EVERYDAY TOOL</span>
             <h3>It started with grading homework.</h3>
-            <p>I wrote <strong>canvas-grade-manager</strong> to automate the repetitive parts of being a TA. Six other teaching assistants picked it up.</p>
+            <p>I wrote <strong>canvas-grade-manager</strong> to automate the repetitive parts of being a TA. It now gets 1,300+ weekly downloads, and six other teaching assistants picked it up.</p>
           </div>
           <a href="https://www.npmjs.com/package/canvas-grade-manager" target="_blank" rel="noreferrer" className="text-button">Find it on npm <ArrowUpRight size={21} /></a>
         </div>

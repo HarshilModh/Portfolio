@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import { PROJECTS } from '../constants/data';
 import { ProjectVisual } from './Projects';
+import { ProjectMockup } from './ProjectMockup';
+import { ArchDiagram } from './ArchDiagram';
 import './CaseStudy.css';
 
 const STUDIES = PROJECTS.filter(project => project.caseStudy);
@@ -40,6 +42,18 @@ export function CaseStudy({ slug }) {
           <h2 className="eyebrow">The problem</h2>
           <p className="case-lead">{caseStudy.problem}</p>
         </section>
+
+        <section className="case-block">
+          <h2 className="eyebrow">The interface</h2>
+          <ProjectMockup slug={project.slug} />
+        </section>
+
+        {caseStudy.architecture && (
+          <section className="case-block">
+            <h2 className="eyebrow">Architecture</h2>
+            <ArchDiagram architecture={caseStudy.architecture} />
+          </section>
+        )}
 
         <section className="case-block">
           <h2 className="eyebrow">Key decisions</h2>

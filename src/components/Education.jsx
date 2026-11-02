@@ -13,6 +13,7 @@ export function Education() {
             <p>{education.school}</p>
             <span className="muted">{education.location}</span>
             {education.details && <span className="gpa">{education.details}</span>}
+            {education.award && <span className="education-award">{education.award}</span>}
           </article>
         ))}
       </div>

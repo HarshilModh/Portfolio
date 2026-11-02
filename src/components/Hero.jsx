@@ -70,7 +70,7 @@ function StaticHero() {
               </span>
               </span>
             </p>
-            <p className="hero-description">I’m Harshil, a software engineer based in New York City. I build full-stack applications and AI tools, connecting thoughtful interfaces with the APIs, data, and infrastructure behind them.</p>
+            <p className="hero-description">I’m Harshil, a software engineer based in Jersey City, NJ. I build full-stack applications and AI tools, connecting thoughtful interfaces with the APIs, data, and infrastructure behind them.</p>
             <p className="hero-description">I like understanding the whole system: how it feels to use, where it gets slow, and what makes it reliable. Along the way, I mentor developers and build open-source tools that make everyday work easier. <a href="#about">More about me <ArrowUpRight size={13} /></a></p>
             <div className="hero-links">
               <a href={PROFILE.resume} download="Harshil-Modh-Resume.pdf"><Download size={16} /> Resume</a>

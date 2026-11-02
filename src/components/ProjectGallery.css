@@ -38,8 +38,8 @@
 .project-gallery .poster-bottom > span:last-child { display: none; }
 .project-gallery .gallery-project:not(.gallery-project-lead) .poster-bottom { display: none; }
 .project-gallery .care-poster-main, .project-gallery .ledger-poster-main { font-size: clamp(2.5rem,4.5vw,4.4rem); padding-bottom: 2px; }
-.visual-studio { background: #b8b0ff; color: #21183f; }
-.visual-editor { background: #b6edfa; color: #142f3b; }
+.visual-studio { background: #e2ddf7; color: #231a45; }
+.visual-editor { background: #d5ebee; color: #13303a; }
 .new-project-poster { font: 400 clamp(2.5rem,4.3vw,4.2rem)/1.05 var(--display); letter-spacing: -.025em; }
 .new-project-poster > span { display: block; }
 .new-project-poster .poster-italic { font: italic .46em/1.4 Georgia, serif; margin-top: 12px; letter-spacing: -.03em; }
@@ -51,6 +51,17 @@
 .project-archive .archive-project { grid-template-columns: auto 1fr auto; gap: 12px; padding-block: 26px; }
 .project-archive .archive-project strong { font-size: 1rem; }
 .project-archive .archive-project > span > span { font-size: .75rem; line-height: 1.65; }
+/* Cards for projects with a case study show their interface, scaled to the card and cropped at the edge. */
+.project-gallery .project-cover.has-mock { position: relative; overflow: hidden; container-type: inline-size; }
+.has-mock .pulse-poster-main, .has-mock .care-poster-main, .has-mock .ledger-poster-main, .has-mock .new-project-poster, .has-mock .poster-bottom { display: none !important; }
+.cover-mock { position: absolute; left: 50%; top: 22%; width: 640px; transform-origin: 50% 0; transform: translateX(-50%) scale(.5); pointer-events: none; text-align: left; }
+.cover-mock .mock figcaption { display: none; }
+.project-gallery .has-mock .cover-link { opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.project-gallery .has-mock:hover .cover-link, .project-gallery .has-mock:focus-visible .cover-link { opacity: 1; transform: none; }
+.cover-mock .mock-window { box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .55); }
+@container (min-width: 440px) { .cover-mock { transform: translateX(-50%) scale(.64); } }
+@container (min-width: 560px) { .cover-mock { transform: translateX(-50%) scale(.82); } }
+@container (min-width: 640px) { .cover-mock { top: 20%; transform: translateX(-50%) scale(.95); } }
 @media (max-width: 1050px) {
   .gallery-project-lead { gap: 32px; grid-template-columns: 1fr 1fr; }
   .project-gallery { gap: 48px 28px; }

@@ -8,22 +8,22 @@ export const PROFILE = {
   "socials": {
     "github": "https://github.com/HarshilModh",
     "linkedin": "https://www.linkedin.com/in/harshil-modh",
-    "email": "hmodh@stevens.edu",
-    "location": "New York City"
+    "email": "harshilmodh77@gmail.com",
+    "location": "Jersey City, NJ"
   }
 };
 
 export const ABOUT = {
   heading: 'A LITTLE\nABOUT ME.',
-  statement: 'I’m a software engineer in New York City who likes the whole path — from the first interface a person touches to the last query that answers them.',
+  statement: 'I’m a software engineer in Jersey City, NJ who likes the whole path — from the first interface a person touches to the last query that answers them.',
   paragraphs: [
     'Most days that means React or Next.js on the front, Node, Express or FastAPI behind it, and Postgres, MongoDB and Redis underneath. Lately a lot of it is AI work: retrieval pipelines, agents with real guardrails, and keeping the parts that have to be predictable in ordinary, testable code.',
     'I came to it the long way — a B.E. in India, then a year building CRM backends where I learned that tuning a query and adding the right index is often the whole feature. Now I hold an M.S. in Computer Science from Stevens.',
     'I also teach. As a teaching assistant I read a lot of other people’s code every week, which is the fastest way I know to get better at writing my own — and a good excuse to build tools that take the repetitive parts away.',
   ],
   facts: [
-    { label: 'Based in', value: 'New York City' },
-    { label: 'Studying', value: 'M.S. Computer Science' },
+    { label: 'Based in', value: 'Jersey City, NJ' },
+    { label: 'Education', value: 'M.S. Computer Science' },
     { label: 'Focused on', value: 'Full-stack + AI systems' },
     { label: 'Also doing', value: 'Teaching & open source' },
   ],
@@ -214,7 +214,8 @@ export const EDUCATION_DATA = [
     "school": "Stevens Institute of Technology",
     "year": "2024 – 2026",
     "location": "Hoboken, New Jersey",
-    "details": "3.86 / 4.0 GPA"
+    "details": "3.86 / 4.0 GPA",
+    "award": "Winner, AWS Publishing & Media Innovation Hackathon, NYC"
   },
   {
     "id": 2,
@@ -222,7 +223,7 @@ export const EDUCATION_DATA = [
     "school": "LDRP Institute of Technology and Research",
     "year": "2019 – 2023",
     "location": "Gujarat, India",
-    "details": "Winner, AWS Publishing & Media Innovation Hackathon, NYC (CoMP Ledger)"
+    "details": ""
   }
 ];
 
@@ -239,6 +240,16 @@ export const PROJECTS = [
     "slug": "codepulse",
     "caseStudy": {
       "role": "Full stack & AI",
+      "architecture": {
+        "note": "Every push fans out to five parallel jobs and fans back in to one score.",
+        "stages": [
+          { "label": "Trigger", "nodes": ["GitHub push"] },
+          { "label": "Ingest", "nodes": ["Node.js / Express API", "BullMQ queue on Redis"] },
+          { "label": "Analyse in parallel", "nodes": ["Complexity", "Vulnerabilities", "Dead code", "Coverage", "Drift: embeddings + pgvector"], "parallel": true },
+          { "label": "Combine", "nodes": ["Score 0–100", "PostgreSQL + Prisma"] },
+          { "label": "Deliver", "nodes": ["PR health comment", "Live updates: Redis Pub/Sub + Socket.IO", "AI agents: SSE + MCP"] }
+        ]
+      },
       "summary": "Every push to a GitHub repo is scored 0–100 within 60 seconds, with AI agents that explain what changed and why it matters.",
       "problem": "Code quality signals are scattered: complexity, vulnerabilities, dead code, coverage, and architectural drift each live in a different tool, and none of them tie back to the push that moved the needle. CodePulse brings them into one score and one conversation.",
       "decisions": [
@@ -289,6 +300,15 @@ export const PROJECTS = [
     "slug": "careconnect",
     "caseStudy": {
       "role": "Full stack · MERN",
+      "architecture": {
+        "note": "Deployed as a four-service Docker stack on AWS EC2.",
+        "stages": [
+          { "label": "Client", "nodes": ["React app"] },
+          { "label": "API", "nodes": ["Express REST API", "JWT + Firebase auth", "Five-role RBAC per membership"] },
+          { "label": "Data & real time", "nodes": ["MongoDB", "Redis cache", "Socket.IO chat + alerts"] },
+          { "label": "Background & storage", "nodes": ["Four background jobs", "S3 with pre-signed URLs"] }
+        ]
+      },
       "summary": "A shared workspace where families and caregivers coordinate tasks, medications, vitals, and documents, with access control that keeps every care group isolated.",
       "problem": "Care is a team effort, but the team is usually split across texts, calls, and paper notes. The platform needed to share sensitive information safely and make sure nothing time-critical, like a missed dose, falls through the gaps.",
       "decisions": [
@@ -352,6 +372,16 @@ export const PROJECTS = [
     "slug": "comp-ledger",
     "caseStudy": {
       "role": "AWS hackathon winner · Backend & AI pipeline",
+      "architecture": {
+        "note": "Claims are decomposed, verified against five sources, scored, and exported as signed evidence.",
+        "stages": [
+          { "label": "Input", "nodes": ["RSS corpus ingestion", "AI answer", "PostgreSQL + pgvector"] },
+          { "label": "Decompose", "nodes": ["Claude on AWS Bedrock splits the answer into claims"] },
+          { "label": "Verify", "nodes": ["Wikipedia", "Google Search", "OpenAlex", "GDELT", "Wayback Machine"], "parallel": true },
+          { "label": "Score", "nodes": ["Exclusivity score", "Claude judge verdict"] },
+          { "label": "Deliver", "nodes": ["SSE stream to React", "SHA-256 signed export to S3"] }
+        ]
+      },
       "summary": "A platform that tests whether an AI answer drew on a publisher's reporting, and produces evidence the publisher can use in licensing negotiations.",
       "problem": "When an AI answer reflects original reporting, publishers have no way to show it. Proving attribution means separating original reporting from common knowledge, and keeping a record that holds up.",
       "decisions": [
@@ -394,6 +424,9 @@ export const PROJECTS = [
     "description": "Agentic AI platform that generates and deploys functional Next.js applications from natural language prompts.",
     "detailedDescription": "Built an agentic AI platform that generates and deploys functional Next.js applications from natural language prompts using a agent workflow orchestrated by Inngest and powered by Google Gemini 2.5 Flash.",
     "impact": "Generates production-ready Next.js apps from prompts in under 60 seconds",
+    "stat": "<60s",
+    "statLabel": "from prompt to a working Next.js app",
+    "slug": "promptstudio",
     "metrics": [
       "AI-Powered",
       "Agentic",
@@ -434,6 +467,9 @@ export const PROJECTS = [
     "description": "Cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator.",
     "detailedDescription": "Developed a cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator, enabling secure execution of 5+ stacks via WASM isolation.",
     "impact": "Cloud IDE supporting 5+ stacks with AI-accelerated coding workflows",
+    "stat": "5+",
+    "statLabel": "stacks running in the browser",
+    "slug": "vibe-code-editor",
     "metrics": [
       "AI-Powered",
       "Cloud-Native",
@@ -577,80 +613,23 @@ export const PROJECTS = [
 
 export const SKILL_GROUPS = [
   {
-    "name": "Languages",
-    "items": [
-      "JavaScript",
-      "TypeScript",
-      "Python",
-      "Java",
-      "SQL"
-    ]
+    "name": "Build interfaces",
+    "items": ["React", "Next.js", "Angular", "TypeScript", "JavaScript", "Tailwind CSS", "shadcn/ui", "TanStack Query", "D3", "Recharts"]
   },
   {
-    "name": "Frontend",
-    "items": [
-      "React",
-      "Next.js",
-      "Angular",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "TanStack Query",
-      "D3",
-      "Recharts"
-    ]
+    "name": "Design APIs & data",
+    "items": ["Node.js", "Express", "FastAPI", "Python", "Java", "SQL", "PostgreSQL", "MongoDB", "Redis", "Prisma", "BullMQ", "Socket.IO", "GraphQL"]
   },
   {
-    "name": "Backend & data",
-    "items": [
-      "Node.js",
-      "Express",
-      "FastAPI",
-      "PostgreSQL",
-      "MongoDB",
-      "Redis",
-      "BullMQ",
-      "Prisma",
-      "Socket.IO",
-      "GraphQL"
-    ]
+    "name": "Ship AI features",
+    "items": ["OpenAI API", "Claude", "Gemini", "RAG", "MCP", "LangGraph", "LangChain", "Embeddings", "pgvector", "Qdrant"]
   },
   {
-    "name": "AI & agents",
-    "items": [
-      "OpenAI API",
-      "Claude",
-      "Gemini",
-      "RAG",
-      "MCP",
-      "LangGraph",
-      "LangChain",
-      "Embeddings",
-      "pgvector",
-      "Qdrant"
-    ]
+    "name": "Run in production",
+    "items": ["AWS EC2 / S3 / Bedrock", "Azure Container Apps", "Docker", "GitHub Actions", "CI/CD", "Linux", "pytest"]
   },
   {
-    "name": "Cloud & delivery",
-    "items": [
-      "AWS EC2 / S3 / Bedrock",
-      "Azure Container Apps",
-      "Docker",
-      "GitHub Actions",
-      "CI/CD",
-      "Linux",
-      "pytest"
-    ]
-  },
-  {
-    "name": "Auth & billing",
-    "items": [
-      "Clerk",
-      "Firebase Auth",
-      "JWT",
-      "OAuth",
-      "RBAC",
-      "HMAC webhooks",
-      "Stripe"
-    ]
+    "name": "Secure & monetize",
+    "items": ["Clerk", "Firebase Auth", "JWT", "OAuth", "RBAC", "HMAC webhooks", "Stripe"]
   }
 ];

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, ExternalLink, Github, X } from 'lucide-react';
 import { PROJECTS, PROFILE } from '../constants/data';
+import { ProjectMockup } from './ProjectMockup';
 import './ProjectGallery.css';
 
 export function ProjectVisual({ project }) {
@@ -104,6 +105,11 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const featured = PROJECTS.filter(project => project.featured);
   const more = PROJECTS.filter(project => !project.featured);
+  // Projects with a case study open it directly; the rest use the quick-look dialog.
+  const open = project => {
+    if (project.caseStudy) window.location.hash = `#/work/${project.slug}`;
+    else setSelectedProject(project);
+  };
 
   return (
     <section id="projects" className="section projects-section" aria-labelledby="projects-title">
@@ -116,8 +122,8 @@ export function Projects() {
         <div className="project-gallery">
           {featured.map((project, index) => (
             <article className={`gallery-project ${index === 0 ? 'gallery-project-lead' : ''}`} id={`project-${index + 1}`} key={project.title}>
-              <button className="project-cover" onClick={() => setSelectedProject(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} /><span className="cover-link"><ArrowUpRight size={24} /></span></button>
-              <ProjectBody project={project} index={index} onOpen={() => setSelectedProject(project)} />
+              <button className={`project-cover ${project.slug ? 'has-mock' : ''}`} onClick={() => open(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} />{project.slug && <span className="cover-mock" aria-hidden="true"><ProjectMockup slug={project.slug} /></span>}<span className="cover-link"><ArrowUpRight size={24} /></span></button>
+              <ProjectBody project={project} index={index} onOpen={() => open(project)} />
             </article>
           ))}
         </div>

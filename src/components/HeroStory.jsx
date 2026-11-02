@@ -34,7 +34,7 @@ export function HeroStory() {
 
   return (
     <section id="home" ref={sectionRef} className="hero hero-scene" aria-labelledby="hero-title">
-      <h1 id="hero-title" className="sr-only">Harshil Modh — Software Engineer in New York City</h1>
+      <h1 id="hero-title" className="sr-only">Harshil Modh — Software Engineer in Jersey City, NJ</h1>
       <div className="hero-scene-pin">
         <div className="container hero-scene-stage">
           <div className="hero-scene-top eyebrow"><span><span className="status-dot" /> FULL-STACK & AI ENGINEER</span><span>{PROFILE.socials.location}</span></div>
@@ -45,7 +45,7 @@ export function HeroStory() {
             </motion.div>
             <motion.div className="hero-scene-panel hero-scene-about" style={{ opacity: aboutOpacity, y: aboutY, scale: aboutScale }} aria-hidden={chapter !== 1} inert={chapter !== 1 ? '' : undefined}>
               <div className="scene-about-heading"><motion.span className="scene-star" aria-hidden="true" style={{ rotate: starRotate }}>✳</motion.span><span className="eyebrow">A LITTLE ABOUT ME</span><h2>I BUILD<br />{' '}THE WHOLE<br />{' '}<span>THING.</span></h2></div>
-              <div className="scene-about-copy"><p className="scene-about-lead">From the first interface<br />to the systems behind it.</p><p>I’m Harshil, a software engineer based in New York City. I build full-stack applications and AI tools, connecting thoughtful interfaces with the APIs, data, and infrastructure behind them.</p><div className="hero-links"><a href={PROFILE.resume} download="Harshil-Modh-Resume.pdf"><Download size={16} /> Resume</a><a href={PROFILE.socials.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} /></a><a href={PROFILE.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div><a className="scene-next-link" href="#skills">Explore the toolkit <ArrowDown size={17} /></a></div>
+              <div className="scene-about-copy"><p className="scene-about-lead">From the first interface<br />to the systems behind it.</p><p>I’m Harshil, a software engineer based in Jersey City, NJ. I build full-stack applications and AI tools, connecting thoughtful interfaces with the APIs, data, and infrastructure behind them.</p><div className="hero-links"><a href={PROFILE.resume} download="Harshil-Modh-Resume.pdf"><Download size={16} /> Resume</a><a href={PROFILE.socials.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} /></a><a href={PROFILE.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16} /></a></div><a className="scene-next-link" href="#skills">Explore the toolkit <ArrowDown size={17} /></a></div>
             </motion.div>
           </div>
           <div className="hero-scene-controls"><div className="scene-chapters">{['Introduction', 'About me'].map((label, index) => <button key={label} ref={node => { chapterRefs.current[index] = node; }} aria-pressed={chapter === index} onClick={() => goToChapter(index)}><span>0{index + 1}</span> {label}</button>)}</div><span className="scene-control-note">SCROLL TO DISCOVER <ArrowDown size={14} /></span><div className="hero-scene-track" aria-hidden="true"><motion.span style={{ scaleX: scrollYProgress }} /></div></div>
