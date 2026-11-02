@@ -614,7 +614,7 @@ export const PROJECTS = [
 export const SKILL_GROUPS = [
   {
     "name": "Build interfaces",
-    "items": ["React", "Next.js", "Angular", "TypeScript", "JavaScript", "Tailwind CSS", "shadcn/ui", "TanStack Query", "D3", "Recharts"]
+    "items": ["React", "Next.js", "Angular", "TypeScript", "JavaScript", "Tailwind CSS", "shadcn/ui", "TanStack Query", "Recharts"]
   },
   {
     "name": "Design APIs & data",

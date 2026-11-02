@@ -1,7 +1,7 @@
 import {
   SiJavascript, SiTypescript, SiPython, SiC, SiCplusplus,
   SiReact, SiNextdotjs, SiAngular, SiTailwindcss, SiShadcnui,
-  SiReactquery, SiD3Dotjs, SiNodedotjs, SiExpress, SiFastapi,
+  SiReactquery, SiNodedotjs, SiExpress, SiFastapi,
   SiPostgresql, SiMongodb, SiRedis, SiPrisma, SiSocketdotio,
   SiGraphql, SiOpenai, SiClaude, SiGooglegemini, SiLangchain,
   SiAmazonwebservices, SiDocker, SiGithubactions, SiLinux,
@@ -29,7 +29,6 @@ const LOGOS = {
   'Tailwind CSS': SiTailwindcss,
   'shadcn/ui': SiShadcnui,
   'TanStack Query': SiReactquery,
-  D3: SiD3Dotjs,
   'Node.js': SiNodedotjs,
   Express: SiExpress,
   FastAPI: SiFastapi,
