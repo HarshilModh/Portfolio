@@ -423,6 +423,11 @@ details[open] > summary > svg { transform: rotate(180deg); }
 .project-body h3 button svg { color: var(--muted); transition: transform .25s, color .25s; }
 .project-body h3 button:hover svg { transform: translate(4px, -4px); color: var(--accent); }
 .project-body > p { font-size: 1rem; color: var(--muted); line-height: 1.85; margin: 22px 0; }
+.project-stat { display: flex; align-items: baseline; gap: 14px; margin: 22px 0; padding-top: 18px; border-top: 1px solid var(--line); }
+.project-stat strong { font: 400 clamp(2.4rem, 4vw, 3.4rem)/1 var(--display); color: var(--accent); letter-spacing: -.01em; white-space: nowrap; }
+.project-stat span { font: .6875rem/1.55 var(--mono); text-transform: uppercase; color: var(--muted); max-width: 22ch; }
+.contact-status { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; font: .75rem/1.5 var(--mono); text-transform: uppercase; color: var(--text); }
+.contact-copy > p.contact-status { margin-top: 22px; font-size: .6875rem; line-height: 1.5; color: var(--text); }
 .project-outcome { font-size: .875rem; line-height: 1.75; margin-bottom: 22px; max-width: 380px; padding-left: 16px; border-left: 2px solid var(--accent); }
 .project-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--line); }
 .project-actions > div { display: flex; }
@@ -464,7 +469,7 @@ details[open] > summary > svg { transform: rotate(180deg); }
    ============================================================ */
 .contact-section { background: var(--band); padding: 100px 0 84px; border-top: 1px solid var(--line); }
 .contact-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 90px; align-items: end; }
-.contact-copy h2 { font: 400 clamp(5rem, 10vw, 9rem)/.99 var(--display); letter-spacing: -.02em; color: var(--headline-accent); }
+.contact-copy h2 { font: 400 clamp(3.6rem, 7.4vw, 6.8rem)/1 var(--display); letter-spacing: -.02em; color: var(--headline-accent); }
 .contact-copy > p { color: var(--muted); font-size: .9375rem; line-height: 1.85; margin: 25px 0 0; }
 .email-row { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
 .email-row > a { display: flex; align-items: center; gap: 19px; font-size: clamp(1.1rem, 2vw, 1.7rem); letter-spacing: -.035em; transition: color .2s; }
@@ -724,7 +729,7 @@ details[open] > summary > svg { transform: rotate(180deg); }
   .dialog-content .button { padding-inline: 18px; font-size: .8125rem; }
   .contact-section { padding: 62px 0 48px; }
   .contact-grid { grid-template-columns: 1fr; gap: 45px; }
-  .contact-copy h2 { font-size: 26vw; line-height: 1; }
+  .contact-copy h2 { font-size: 17vw; line-height: 1; }
   .contact-copy h2 br { display: block; }
   .contact-copy > p { font-size: 1rem; margin-top: 21px; }
   .email-row { margin-top: 22px; gap: 10px; }

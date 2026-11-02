@@ -46,7 +46,9 @@ function ProjectBody({ project, index, onOpen }) {
                 <div className="project-meta"><span className="project-number">{String(index + 1).padStart(2, '0')}</span><span className="pill">{project.category}</span></div>
                 <h3><button onClick={onOpen}>{project.title}<ArrowUpRight size={28} /></button></h3>
                 <p>{project.description}</p>
-                <div className="project-outcome">{project.impact}</div>
+                {project.stat
+                  ? <div className="project-stat"><strong>{project.stat}</strong><span>{project.statLabel}</span></div>
+                  : <div className="project-outcome">{project.impact}</div>}
                 <div className="tags tags-pill">{project.tech.slice(0, 5).map(tech => <span key={tech}>{tech}</span>)}</div>
                 <div className="project-actions">
                   <button className="text-button" onClick={onOpen}>Project details <ArrowRight size={17} /></button>

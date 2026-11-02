@@ -18,7 +18,7 @@ export const ABOUT = {
   statement: 'I’m a software engineer in New York City who likes the whole path — from the first interface a person touches to the last query that answers them.',
   paragraphs: [
     'Most days that means React or Next.js on the front, Node, Express or FastAPI behind it, and Postgres, MongoDB and Redis underneath. Lately a lot of it is AI work: retrieval pipelines, agents with real guardrails, and keeping the parts that have to be predictable in ordinary, testable code.',
-    'I came to it the long way — a B.E. in India, then a year building CRM backends where I learned that tuning a query and adding the right index is often the whole feature. Now I’m finishing an M.S. in Computer Science at Stevens.',
+    'I came to it the long way — a B.E. in India, then a year building CRM backends where I learned that tuning a query and adding the right index is often the whole feature. Now I hold an M.S. in Computer Science from Stevens.',
     'I also teach. As a teaching assistant I read a lot of other people’s code every week, which is the fastest way I know to get better at writing my own — and a good excuse to build tools that take the repetitive parts away.',
   ],
   facts: [
@@ -31,7 +31,7 @@ export const ABOUT = {
     { value: 71, suffix: 'K+', label: 'rows powering live analytics' },
     { value: 100, suffix: '+', label: 'graduate developers mentored' },
     { value: 6, suffix: '+', label: 'TAs using my open-source CLI' },
-    { value: 3.9, decimals: 1, suffix: ' / 4.0', label: 'GPA on the M.S. so far' },
+    { value: 3.86, decimals: 2, suffix: ' / 4.0', label: 'GPA on the M.S.' },
   ],
 };
 
@@ -49,13 +49,13 @@ export const EXPERIENCE_DATA = [
     "id": 10,
     "role": "Software Engineer, AI",
     "organization": "GenAI Consulting",
-    "period": "Jan 2026 – Present",
+    "period": "Jan 2026 – May 2026",
     "location": "Princeton, NJ",
-    "description": "Building full-stack analytics and AI systems with deterministic business logic, reliable data access, and production guardrails.",
+    "description": "Built a full-stack AI sales platform for a pharmaceutical client's field team, with reliable data access and production guardrails.",
     "bullets": [
-      "Shipped a React and FastAPI platform querying 71K+ rows across 10 SQL tables, deployed on Azure Container Apps.",
-      "Built two AI agents and a guarded copilot, keeping scoring in Python for predictable, testable results.",
-      "Wrote 92 isolated CI tests and a four-scenario LLM guardrail suite; eliminated $263/month in idle costs with scale-to-zero deployment."
+      "Built the React/TypeScript rep app that tells reps which doctors to visit next and briefs them before each visit, serving live queries over 71K+ rows across 10 tables.",
+      "Built a RAG assistant that refuses to answer unverifiable numbers, with fail-closed Python guardrails that block patient data and off-label requests; answered about 96% of 70 live test questions in 2–4 seconds.",
+      "Deployed on Azure Container Apps with managed identity and scale-to-zero, removing $263/month in idle cost; backed by 760+ pytest tests."
     ],
     "tags": [
       "React",
@@ -71,13 +71,13 @@ export const EXPERIENCE_DATA = [
     "id": 1,
     "role": "Teaching Assistant · CS 546",
     "organization": "Stevens Institute of Technology",
-    "period": "Sep 2025 – Present",
+    "period": "Sep 2025 – Aug 2026",
     "location": "Hoboken, NJ",
     "description": "Helping graduate developers build better software, and building tools that make teaching it easier.",
     "bullets": [
-      "Published canvas-grade-manager, a Canvas API CLI adopted by 6+ teaching assistants across two semesters.",
-      "Built an automated grading framework covering HTTP responses, authentication, JSON contracts, and database state, reducing turnaround by 80%.",
-      "Mentored 100+ graduate developers and reviewed 80+ submissions each week."
+      "Published canvas-grade-manager, an npm CLI on the Canvas API with 1,300+ weekly downloads, adopted by 6+ teaching assistants across two semesters.",
+      "Built a grading framework covering HTTP responses, JSON contracts, authentication, and database state, cutting grading turnaround by 80%.",
+      "Mentored 100+ graduate students through 80+ weekly code reviews, cutting critical defects by 30%, and debugged 50+ student defects in async, middleware, and auth flows."
     ],
     "tags": [
       "Node.js",
@@ -96,9 +96,9 @@ export const EXPERIENCE_DATA = [
     "location": "India",
     "description": "Built and shipped CRM backends and role-aware dashboards, with a focus on performance and secure access.",
     "bullets": [
-      "Designed modular Node.js, Express, and MongoDB services with standardized API contracts.",
-      "Secured 15+ REST endpoints with JWT, role-based access, validation, and authorization tests.",
-      "Reduced API latency by 50% and database reads by 40% through query tuning, indexing, and Redis caching; shipped Docker services to AWS with GitHub Actions."
+      "Architected modular CRM backends in Node.js, Express, and MongoDB, securing 15+ production endpoints with JWT, RBAC, validation middleware, and authorization failure-path tests.",
+      "Cut API latency by 50% and database reads by 40% through query-plan analysis, index tuning, and Redis TTL caching.",
+      "Built role-aware React and Angular dashboards that cut reporting turnaround by 35%; shipped Dockerized services to AWS through GitHub Actions CI/CD."
     ],
     "tags": [
       "Node.js",
@@ -214,7 +214,7 @@ export const EDUCATION_DATA = [
     "school": "Stevens Institute of Technology",
     "year": "2024 – 2026",
     "location": "Hoboken, New Jersey",
-    "details": "3.9 / 4.0 GPA"
+    "details": "3.86 / 4.0 GPA"
   },
   {
     "id": 2,
@@ -222,7 +222,7 @@ export const EDUCATION_DATA = [
     "school": "LDRP Institute of Technology and Research",
     "year": "2019 – 2023",
     "location": "Gujarat, India",
-    "details": ""
+    "details": "Winner, AWS Publishing & Media Innovation Hackathon, NYC (CoMP Ledger)"
   }
 ];
 
@@ -234,6 +234,8 @@ export const PROJECTS = [
     "description": "Understand the health of a codebase, from every commit to the bigger architectural picture.",
     "detailedDescription": "A GitHub-integrated code health platform that turns every push into five parallel analysis jobs. Repository scoring, AI investigation, and real-time updates bring actionable insights into the developer workflow.",
     "impact": "5 parallel analysis jobs. One code health score in under 60 seconds.",
+    "stat": "<60s",
+    "statLabel": "to score a repo after each push",
     "featured": true,
     "theme": "blue",
     "tech": [
@@ -250,7 +252,7 @@ export const PROJECTS = [
     ],
     "features": [
       "Scores complexity, vulnerabilities, dead code, test coverage, and architectural drift on every push.",
-      "Six-tool RAG chat, root-cause investigation, multi-agent debate, and guided codebase tours stream over SSE.",
+      "Six-tool RAG chat, root-cause investigation, multi-agent debate, and guided codebase tours stream over SSE with sub-400ms time-to-first-response.",
       "Semantic architectural-drift detection uses embeddings and pgvector search in under 50ms.",
       "A GitHub App delivers PR health comments, with live score updates, SVG badges, and weekly digests.",
       "MCP tools expose the AI agents to Claude and Cursor; Clerk and Stripe support authentication and billing."
@@ -264,6 +266,8 @@ export const PROJECTS = [
     "description": "A shared place for families and caregivers to coordinate care, stay informed, and act together.",
     "detailedDescription": "A full-stack MERN platform for coordinating tasks, medications, vitals, and documents. Membership-level access control keeps care groups isolated, while real-time communication keeps everyone in sync.",
     "impact": "40+ secured endpoints. 5 access roles. 50% fewer database queries.",
+    "stat": "−50%",
+    "statLabel": "database queries with Redis caching",
     "metrics": [
       "Real-Time",
       "Full Stack",
@@ -306,6 +310,8 @@ export const PROJECTS = [
     "description": "Trace AI-generated claims back to original reporting, with evidence publishers can inspect.",
     "detailedDescription": "An AWS hackathon-winning content attribution platform that decomposes AI answers into factual claims and evaluates the evidence linking those claims to a publisher’s archive.",
     "impact": "AWS Hackathon Winner",
+    "stat": "1st",
+    "statLabel": "AWS Publishing & Media Innovation Hackathon, NYC",
     "featured": true,
     "theme": "amber",
     "tech": [
@@ -522,9 +528,7 @@ export const SKILL_GROUPS = [
       "TypeScript",
       "Python",
       "Java",
-      "SQL",
-      "C",
-      "C++"
+      "SQL"
     ]
   },
   {
