@@ -236,6 +236,24 @@ export const PROJECTS = [
     "impact": "5 parallel analysis jobs. One code health score in under 60 seconds.",
     "stat": "<60s",
     "statLabel": "to score a repo after each push",
+    "slug": "codepulse",
+    "caseStudy": {
+      "role": "Full stack & AI",
+      "summary": "Every push to a GitHub repo is scored 0–100 within 60 seconds, with AI agents that explain what changed and why it matters.",
+      "problem": "Code quality signals are scattered: complexity, vulnerabilities, dead code, coverage, and architectural drift each live in a different tool, and none of them tie back to the push that moved the needle. CodePulse brings them into one score and one conversation.",
+      "decisions": [
+        { "title": "Fan-out, fan-in analysis", "body": "Each push becomes five parallel BullMQ jobs (complexity, vulnerabilities, dead code, coverage, drift) that fan back in to a single 0–100 score, so total time is the slowest analysis rather than the sum." },
+        { "title": "Semantic drift detection", "body": "OpenAI embeddings stored in pgvector let drift show up as cosine distance, searched in under 50ms. K-Means groups related files on a multi-tenant PostgreSQL and Prisma schema of 14 models." },
+        { "title": "Agents that stream", "body": "Six-tool RAG code chat, root-cause investigation, multi-agent design debate, and codebase tours stream over SSE with sub-400ms time-to-first-response, and are exposed to IDEs through an MCP server." },
+        { "title": "Production plumbing", "body": "Clerk auth, Stripe billing tiers, HMAC-verified webhooks, and hashed API keys. PR health comments and live score updates travel through Redis Pub/Sub and Socket.IO." }
+      ],
+      "results": [
+        { "value": "<60s", "label": "push to score" },
+        { "value": "5", "label": "parallel analyses" },
+        { "value": "<50ms", "label": "drift search" },
+        { "value": "<400ms", "label": "time to first response" }
+      ]
+    },
     "featured": true,
     "theme": "blue",
     "tech": [
@@ -268,6 +286,25 @@ export const PROJECTS = [
     "impact": "40+ secured endpoints. 5 access roles. 50% fewer database queries.",
     "stat": "−50%",
     "statLabel": "database queries with Redis caching",
+    "slug": "careconnect",
+    "caseStudy": {
+      "role": "Full stack · MERN",
+      "summary": "A shared workspace where families and caregivers coordinate tasks, medications, vitals, and documents, with access control that keeps every care group isolated.",
+      "problem": "Care is a team effort, but the team is usually split across texts, calls, and paper notes. The platform needed to share sensitive information safely and make sure nothing time-critical, like a missed dose, falls through the gaps.",
+      "decisions": [
+        { "title": "Access control per membership", "body": "Five roles with permission checks evaluated per care-group membership, across 40+ REST endpoints, using JWT plus Firebase authentication, so access is decided by a user's role inside each care group." },
+        { "title": "Caching and stateless sessions", "body": "Redis caching and token-based stateless sessions reduced database queries by 50%." },
+        { "title": "Real-time communication", "body": "Socket.IO group chat with edit history, read receipts, and admin-only deletion. One-tap emergency alerts reach every group member through in-app notifications, chat, and email." },
+        { "title": "Correct under concurrency", "body": "Four background jobs handle recurring tasks, overdue detection, deduplicated reminders, and cleanup. Medication dose tracking stays accurate when several caregivers write at once." },
+        { "title": "Deployment", "body": "A four-service Docker stack on AWS EC2, with S3 pre-signed URLs securing document access." }
+      ],
+      "results": [
+        { "value": "40+", "label": "secured endpoints" },
+        { "value": "5", "label": "access roles" },
+        { "value": "−50%", "label": "database queries" },
+        { "value": "4", "label": "services in Docker" }
+      ]
+    },
     "metrics": [
       "Real-Time",
       "Full Stack",
@@ -312,6 +349,24 @@ export const PROJECTS = [
     "impact": "AWS Hackathon Winner",
     "stat": "1st",
     "statLabel": "AWS Publishing & Media Innovation Hackathon, NYC",
+    "slug": "comp-ledger",
+    "caseStudy": {
+      "role": "AWS hackathon winner · Backend & AI pipeline",
+      "summary": "A platform that tests whether an AI answer drew on a publisher's reporting, and produces evidence the publisher can use in licensing negotiations.",
+      "problem": "When an AI answer reflects original reporting, publishers have no way to show it. Proving attribution means separating original reporting from common knowledge, and keeping a record that holds up.",
+      "decisions": [
+        { "title": "Claims, not answers", "body": "Claude decomposes an AI answer into factual claims. Each claim is checked against five external sources (Wikipedia, Google Search, OpenAlex, GDELT, and the Wayback Machine) before a Claude judge returns a structured verdict." },
+        { "title": "Exclusivity scoring", "body": "Each claim is scored inversely to how many independent sources carry it. Common knowledge scores low and original reporting scores high." },
+        { "title": "Ingestion and storage", "body": "RSS-driven corpus ingestion into PostgreSQL with pgvector, behind a Node.js and Express API with 40 REST endpoints, JWT auth, and rate limiting." },
+        { "title": "Evidence you can trust", "body": "Scored claims stream to the React client over Server-Sent Events. Exports are signed with SHA-256 and written to S3 with the hash mirrored in object metadata, making them tamper-evident." }
+      ],
+      "results": [
+        { "value": "1st", "label": "AWS hackathon, NYC" },
+        { "value": "40", "label": "REST endpoints" },
+        { "value": "5", "label": "verification sources" },
+        { "value": "SHA-256", "label": "signed evidence exports" }
+      ]
+    },
     "featured": true,
     "theme": "amber",
     "tech": [

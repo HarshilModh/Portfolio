@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight, ExternalLink, Github, X } from 'lucide-react'
 import { PROJECTS, PROFILE } from '../constants/data';
 import './ProjectGallery.css';
 
-function ProjectVisual({ project }) {
+export function ProjectVisual({ project }) {
   if (project.title === 'PromptStudio' || project.title === 'Vibe Code Editor') {
     const studio = project.title === 'PromptStudio';
     return <div className={`project-visual ${studio ? 'visual-studio' : 'visual-editor'}`} role="img" aria-label={`${project.title}: ${project.tagline}`}>
@@ -51,7 +51,9 @@ function ProjectBody({ project, index, onOpen }) {
                   : <div className="project-outcome">{project.impact}</div>}
                 <div className="tags tags-pill">{project.tech.slice(0, 5).map(tech => <span key={tech}>{tech}</span>)}</div>
                 <div className="project-actions">
-                  <button className="text-button" onClick={onOpen}>Project details <ArrowRight size={17} /></button>
+                  {project.caseStudy
+                    ? <a className="text-button" href={`#/work/${project.slug}`}>Read case study <ArrowRight size={17} /></a>
+                    : <button className="text-button" onClick={onOpen}>Project details <ArrowRight size={17} /></button>}
                   <div>
                     {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`View ${project.title} on GitHub`}><Github size={16} /><span>Source</span></a>}
                     {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`Open ${project.title} live site`}><span>Live app</span><ExternalLink size={15} /></a>}
@@ -90,6 +92,7 @@ function ProjectDialog({ project, onClose }) {
         <div className="button-row">
           {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="button button-primary"><Github size={17} /> View code <ArrowUpRight size={16} /></a>}
           {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="button button-outline">Live site <ExternalLink size={16} /></a>}
+          {project.caseStudy && <a href={`#/work/${project.slug}`} className="button button-outline" onClick={onClose}>Read case study <ArrowRight size={16} /></a>}
           {!project.github && !project.link && <a href={`mailto:${PROFILE.socials.email}?subject=${encodeURIComponent(`Tell me about ${project.title}`)}`} className="button button-primary">Ask me about this project <ArrowUpRight size={16} /></a>}
         </div>
       </div>

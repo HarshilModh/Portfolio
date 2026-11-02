@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
-import { NAV_LINKS, PROFILE } from './constants/data';
+import { NAV_LINKS, PROFILE, PROJECTS } from './constants/data';
 import { Hero } from './components/Hero';
 import { TechTicker } from './components/TechTicker';
 import { About } from './components/About';
@@ -10,6 +10,7 @@ import { Experience } from './components/Experience';
 import { Education } from './components/Education';
 import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
+import { CaseStudy } from './components/CaseStudy';
 import { useReveal } from './utils/useReveal';
 import { useScrollScene } from './utils/useScrollScene';
 
@@ -25,7 +26,23 @@ export default function App() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.25 });
   const sceneEnabled = useScrollScene();
-  useReveal(sceneEnabled ? 'scene' : 'static');
+  const [hash, setHash] = useState(() => window.location.hash);
+  const requested = hash.startsWith('#/work/') ? hash.slice(7) : null;
+  const slug = PROJECTS.some(project => project.caseStudy && project.slug === requested) ? requested : null;
+  useReveal(`${sceneEnabled ? 'scene' : 'static'}-${slug ?? 'home'}`);
+
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Returning from a case study remounts the home sections, so jump to the requested anchor.
+  useEffect(() => {
+    if (slug || hash.length < 2 || hash.startsWith('#/')) return;
+    const frame = requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView());
+    return () => cancelAnimationFrame(frame);
+  }, [slug, hash]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -38,7 +55,7 @@ export default function App() {
     }, { rootMargin: '-15% 0px -60% 0px' });
     document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
     return () => observer.disconnect();
-  }, [sceneEnabled]);
+  }, [sceneEnabled, slug]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -84,14 +101,18 @@ export default function App() {
         })}
       </nav>
       <main id="main">
-        <Hero />
-        <TechTicker />
-        <Projects />
-        <Experience />
-        <Skills />
-        <About />
-        <Education />
-        <Contact />
+        {slug ? <CaseStudy key={slug} slug={slug} /> : (
+          <>
+            <Hero />
+            <TechTicker />
+            <Projects />
+            <Experience />
+            <Skills />
+            <About />
+            <Education />
+            <Contact />
+          </>
+        )}
       </main>
       <footer className="container footer">
         <a className="brand-mark" href="#home" aria-label="Back to top">HM<span>↗</span></a>
