@@ -47,7 +47,7 @@ export function About() {
         <div className="about-grid">
           <div className="about-lead" data-reveal>
             <motion.div style={reducedMotion ? undefined : { y: leadY }}>
-              <span className="eyebrow section-index">04 / A LITTLE ABOUT ME</span>
+              <span className="eyebrow section-index">02 / A LITTLE ABOUT ME</span>
               <h2 id="about-title">WHAT I<br />{' '}ACTUALLY DO.</h2>
             </motion.div>
           </div>

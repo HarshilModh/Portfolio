@@ -9,9 +9,13 @@ import {
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa6';
 import { TbBrandAzure } from 'react-icons/tb';
+import {
+  Axis3d, BarChart3, Boxes, Database, FileSearch, Infinity as InfinityIcon, KeyRound,
+  ListOrdered, Plug, ShieldCheck, Waypoints, Webhook, Workflow,
+} from 'lucide-react';
 
 // Official brand silhouettes from Simple Icons, Font Awesome, and Tabler.
-// Concepts without a brand (SQL, RAG, RBAC, etc.) retain their text labels.
+// Concepts and tools without a brand mark (SQL, RAG, RBAC, etc.) use a matching Lucide glyph.
 const LOGOS = {
   JavaScript: SiJavascript,
   TypeScript: SiTypescript,
@@ -51,8 +55,26 @@ const LOGOS = {
   Stripe: SiStripe,
 };
 
+const GLYPHS = {
+  SQL: Database,
+  Recharts: BarChart3,
+  BullMQ: ListOrdered,
+  RAG: FileSearch,
+  MCP: Plug,
+  LangGraph: Workflow,
+  Embeddings: Waypoints,
+  pgvector: Axis3d,
+  Qdrant: Boxes,
+  'CI/CD': InfinityIcon,
+  OAuth: KeyRound,
+  RBAC: ShieldCheck,
+  'HMAC webhooks': Webhook,
+};
+
 export function TechLogo({ name }) {
   const Logo = LOGOS[name];
-  if (!Logo) return null;
-  return <Logo className="tech-logo" aria-hidden="true" focusable="false" />;
+  if (Logo) return <Logo className="tech-logo" aria-hidden="true" focusable="false" />;
+  const Glyph = GLYPHS[name];
+  if (Glyph) return <Glyph className="tech-logo" strokeWidth={1.75} aria-hidden="true" focusable="false" />;
+  return null;
 }

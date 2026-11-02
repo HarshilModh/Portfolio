@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-// Elements marked [data-reveal] fade up once, the first time they enter the viewport.
+// Elements marked [data-reveal] fade up once, starting just before they scroll into view
+// so long sections never show an empty gap while the next block waits to appear.
 // Pass a `key` that changes whenever new reveal targets are mounted.
 export function useReveal(key) {
   useEffect(() => {
@@ -15,7 +16,7 @@ export function useReveal(key) {
         entry.target.classList.add('is-revealed');
         observer.unobserve(entry.target);
       });
-    }, { rootMargin: '0px 0px -11% 0px' });
+    }, { rootMargin: '0px 0px 12% 0px' });
     targets.forEach(element => observer.observe(element));
     return () => observer.disconnect();
   }, [key]);

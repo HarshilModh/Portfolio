@@ -106,9 +106,9 @@ export default function App() {
             <Hero />
             <TechTicker />
             <Projects />
+            <About />
             <Experience />
             <Skills />
-            <About />
             <Education />
             <Contact />
           </>

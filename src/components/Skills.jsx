@@ -13,7 +13,7 @@ export function Skills() {
     <section id="skills" className="section skills-section" aria-labelledby="skills-title">
       <div className="container">
         <div className="section-heading" data-reveal>
-          <div><span className="eyebrow section-index">03 / WHAT I WORK WITH</span><h2 id="skills-title">THE TOOLKIT.</h2></div>
+          <div><span className="eyebrow section-index">04 / WHAT I WORK WITH</span><h2 id="skills-title">THE TOOLKIT.</h2></div>
           <p>Comfortable across the stack.<br />{' '}Always room to learn something new.</p>
         </div>
         <div className="skill-filters" aria-label="Filter skills by category" data-reveal>

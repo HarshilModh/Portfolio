@@ -23,7 +23,7 @@ export function Experience() {
   return (
     <section id="experience" className="section container" aria-labelledby="experience-title">
       <div className="section-heading" data-reveal>
-        <div><span className="eyebrow section-index">02 / THE EXPERIENCE SO FAR</span><h2 id="experience-title">WORK &<br />{' '}EXPERIENCE.</h2></div>
+        <div><span className="eyebrow section-index">03 / THE EXPERIENCE SO FAR</span><h2 id="experience-title">WORK &<br />{' '}EXPERIENCE.</h2></div>
         <p>Teams I’ve worked with.<br />{' '}Problems I’ve helped solve.</p>
       </div>
 

@@ -37,9 +37,9 @@ export const ABOUT = {
 
 export const NAV_LINKS = [
   { name: 'Projects', href: '#projects' },
+  { name: 'About', href: '#about' },
   { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
-  { name: 'About', href: '#about' },
   { name: 'Education', href: '#education' },
   { name: 'Contact', href: '#contact' },
 ];
