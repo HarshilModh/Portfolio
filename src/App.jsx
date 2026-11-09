@@ -14,8 +14,11 @@ import { useReveal } from './utils/useReveal';
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
-    try { return localStorage.getItem('portfolio-theme-v3') === 'dark' ? 'dark' : 'light'; }
-    catch { return 'light'; }
+    try {
+      const saved = localStorage.getItem('portfolio-theme-v3');
+      if (saved === 'dark' || saved === 'light') return saved;
+    } catch { /* fall through to the system preference */ }
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -42,8 +45,25 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem('portfolio-theme-v3', theme); } catch { /* Theme still works when storage is unavailable. */ }
   }, [theme]);
+
+  // Follow the device theme live until the visitor picks one explicitly with the toggle.
+  useEffect(() => {
+    const query = window.matchMedia?.('(prefers-color-scheme: dark)');
+    if (!query) return;
+    const onChange = event => {
+      try { if (localStorage.getItem('portfolio-theme-v3')) return; } catch { /* ignore */ }
+      setTheme(event.matches ? 'dark' : 'light');
+    };
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    try { localStorage.setItem('portfolio-theme-v3', next); } catch { /* Theme still works when storage is unavailable. */ }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -75,7 +95,7 @@ export default function App() {
             {NAV_LINKS.map(link => <a key={link.href} href={link.href} className={activeSection === link.href.slice(1) ? 'active' : ''} aria-current={activeSection === link.href.slice(1) ? 'location' : undefined} onClick={() => setMenuOpen(false)}>{link.name}</a>)}
           </nav>
           <div className="header-actions">
-            <button className="icon-button theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
+            <button className="icon-button theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
               {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
             <a className="header-contact" href={`mailto:${PROFILE.socials.email}`}>Get in touch <ArrowUpRight size={16} /></a>
