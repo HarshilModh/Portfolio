@@ -15,7 +15,7 @@ import { useReveal } from './utils/useReveal';
 export default function App() {
   const [theme, setTheme] = useState(() => {
     try {
-      const saved = localStorage.getItem('portfolio-theme-v3');
+      const saved = localStorage.getItem('portfolio-theme-v4');
       if (saved === 'dark' || saved === 'light') return saved;
     } catch { /* fall through to the system preference */ }
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -52,7 +52,7 @@ export default function App() {
     const query = window.matchMedia?.('(prefers-color-scheme: dark)');
     if (!query) return;
     const onChange = event => {
-      try { if (localStorage.getItem('portfolio-theme-v3')) return; } catch { /* ignore */ }
+      try { if (localStorage.getItem('portfolio-theme-v4')) return; } catch { /* ignore */ }
       setTheme(event.matches ? 'dark' : 'light');
     };
     query.addEventListener('change', onChange);
@@ -62,7 +62,7 @@ export default function App() {
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
-    try { localStorage.setItem('portfolio-theme-v3', next); } catch { /* Theme still works when storage is unavailable. */ }
+    try { localStorage.setItem('portfolio-theme-v4', next); } catch { /* Theme still works when storage is unavailable. */ }
   };
 
   useEffect(() => {
