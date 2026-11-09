@@ -5,7 +5,7 @@ import {
   SiPostgresql, SiMongodb, SiRedis, SiPrisma, SiSocketdotio,
   SiGraphql, SiOpenai, SiClaude, SiGooglegemini, SiLangchain,
   SiAmazonwebservices, SiDocker, SiGithubactions, SiLinux,
-  SiPytest, SiClerk, SiFirebase, SiJsonwebtokens, SiStripe,
+  SiPytest, SiClerk, SiFirebase, SiJsonwebtokens, SiStripe, SiSpringboot,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa6';
 import { TbBrandAzure } from 'react-icons/tb';
@@ -21,6 +21,7 @@ const LOGOS = {
   TypeScript: SiTypescript,
   Python: SiPython,
   Java: FaJava,
+  'Spring Boot': SiSpringboot,
   C: SiC,
   'C++': SiCplusplus,
   React: SiReact,

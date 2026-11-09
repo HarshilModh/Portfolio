@@ -1,66 +1,77 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, ExternalLink, Github, X } from 'lucide-react';
-import { PROJECTS, PROFILE } from '../constants/data';
-import { ProjectMockup } from './ProjectMockup';
-import './ProjectGallery.css';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, Copy, ExternalLink, Github, X } from 'lucide-react';
+import { OPEN_SOURCE, PROJECTS, PROFILE } from '../constants/data';
+import './Projects.css';
 
-export function ProjectVisual({ project }) {
-  if (project.title === 'PromptStudio' || project.title === 'Vibe Code Editor') {
-    const studio = project.title === 'PromptStudio';
-    return <div className={`project-visual ${studio ? 'visual-studio' : 'visual-editor'}`} role="img" aria-label={`${project.title}: ${project.tagline}`}>
-      <div className="poster-top"><span>{project.title.toUpperCase()}</span><span>{studio ? 'FROM PROMPT TO PRODUCT' : 'YOUR BROWSER. YOUR WORKSPACE.'}</span></div>
-      <div className="new-project-poster"><span>{studio ? 'AN IDEA.' : 'OPEN.'}</span><span>{studio ? 'AN APP.' : 'BUILD.'}</span><span className="poster-italic">{studio ? 'Just like that.' : 'Run anywhere.'}</span></div>
-      <div className="poster-bottom"><span>{studio ? 'Describe it. Generate it.' : 'A full development environment.'}<br />{studio ? 'Make it yours.' : 'One browser tab.'}</span><span>{studio ? 'GEMINI + INNGEST' : 'MONACO + WEBCONTAINERS'}</span></div>
-    </div>;
-  }
+const pad = number => String(number).padStart(2, '0');
 
-  if (project.title === 'CodePulse') {
-    return (
-      <div className="project-visual visual-pulse" role="img" aria-label="CodePulse analyzes five signals: complexity, security, dead code, coverage, and architectural drift, to produce one repository health score.">
-        <div className="poster-top"><span>CODEPULSE</span><span>REPOSITORY INTELLIGENCE</span></div>
-        <div className="pulse-poster-main"><span className="poster-number">05</span><span className="poster-equals">↗</span></div>
-        <div className="poster-bottom"><span>Five signals.<br />{' '}The whole picture.</span><span>COMPLEXITY / SECURITY<br />{' '}DEAD CODE / COVERAGE<br />{' '}ARCHITECTURAL DRIFT</span></div>
-      </div>
-    );
-  }
-  if (project.title === 'CareConnect') {
-    return (
-      <div className="project-visual visual-care" role="img" aria-label="CareConnect brings family members, caregivers, and care recipients together around shared tasks, medications, and real-time communication.">
-        <div className="poster-top"><span>CARECONNECT</span><span>CARE IS A TEAM EFFORT</span></div>
-        <div className="care-poster-main"><span>CARE,</span><span>TOGETHER<span className="care-period">.</span></span></div>
-        <div className="poster-bottom"><span>A shared space.<br />{' '}A stronger support system.</span><span>FAMILIES + CAREGIVERS<br />{' '}REAL-TIME COORDINATION</span></div>
-      </div>
-    );
-  }
+// Two rows at every width: four columns on desktop, two on tablet, a short list on phones.
+function useRowLimit() {
+  const get = () => (window.matchMedia('(max-width: 640px)').matches ? 5 : window.matchMedia('(max-width: 1150px)').matches ? 4 : 8);
+  const [limit, setLimit] = useState(get);
+  useEffect(() => {
+    const update = () => setLimit(get());
+    const queries = ['(max-width: 640px)', '(max-width: 1150px)'].map(query => window.matchMedia(query));
+    queries.forEach(query => query.addEventListener('change', update));
+    return () => queries.forEach(query => query.removeEventListener('change', update));
+  }, []);
+  return limit;
+}
+
+const KINDS = ['All', ...new Set(PROJECTS.flatMap(project => project.kinds))];
+
+// Every project uses the same card: one number, one line, one way in.
+function WorkCard({ project, index, onOpen }) {
+  const Tag = project.caseStudy ? 'a' : 'button';
+  const action = project.caseStudy ? { href: `#/work/${project.slug}` } : { type: 'button', onClick: onOpen };
   return (
-    <div className="project-visual visual-ledger" role="img" aria-label="CoMP Ledger traces AI-generated claims back to original reporting. AWS Hackathon Winner.">
-      <div className="poster-top"><span>CoMP LEDGER</span><span>CONTENT ATTRIBUTION</span></div>
-      <div className="ledger-poster-main"><span>WHO SAID</span><span>IT <i>FIRST?</i></span></div>
-      <div className="poster-bottom"><span>Give original reporting<br />{' '}its credit.</span><span className="winner-stamp">AWS HACKATHON<br />{' '}<strong>WINNER ↗</strong></span></div>
-    </div>
+    <li>
+      <Tag className="work-card" {...action}>
+        <span className="work-cover">
+          <span className="work-cover-top"><span>{pad(index + 1)}</span><span>{project.kinds.join(' · ')}</span></span>
+          <strong>{project.stat}</strong>
+          <span className="work-stat-label">{project.statLabel}</span>
+        </span>
+        <span className="work-info">
+          <span className="work-title">{project.title}<ArrowUpRight size={20} /></span>
+          <span className="work-line">{project.oneLiner}</span>
+          <span className="work-link">{project.caseStudy ? 'Case study' : 'Quick look'} <ArrowRight size={14} /></span>
+        </span>
+      </Tag>
+    </li>
   );
 }
 
-function ProjectBody({ project, index, onOpen }) {
+// The published package gets its own block: what it fixes, what it does, and how far it travelled.
+function OpenSource() {
+  const [copied, setCopied] = useState(false);
+  async function copyInstall() {
+    try { await navigator.clipboard.writeText(OPEN_SOURCE.install); setCopied(true); }
+    catch { setCopied(false); }
+  }
   return (
-              <div className="project-body">
-                <div className="project-meta"><span className="project-number">{String(index + 1).padStart(2, '0')}</span><span className="pill">{project.category}</span></div>
-                <h3><button onClick={onOpen}>{project.title}<ArrowUpRight size={28} /></button></h3>
-                <p>{project.description}</p>
-                {project.stat
-                  ? <div className="project-stat"><strong>{project.stat}</strong><span>{project.statLabel}</span></div>
-                  : <div className="project-outcome">{project.impact}</div>}
-                <div className="tags tags-pill">{project.tech.slice(0, 5).map(tech => <span key={tech}>{tech}</span>)}</div>
-                <div className="project-actions">
-                  {project.caseStudy
-                    ? <a className="text-button" href={`#/work/${project.slug}`}>Read case study <ArrowRight size={17} /></a>
-                    : <button className="text-button" onClick={onOpen}>Project details <ArrowRight size={17} /></button>}
-                  <div>
-                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`View ${project.title} on GitHub`}><Github size={16} /><span>Source</span></a>}
-                    {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="project-source-link" aria-label={`Open ${project.title} live site`}><span>Live app</span><ExternalLink size={15} /></a>}
-                  </div>
-                </div>
-              </div>
+    <div className="open-source" data-reveal>
+      <div className="open-source-copy">
+        <span className="eyebrow">Open source · npm package</span>
+        <h3>{OPEN_SOURCE.name}</h3>
+        <p>{OPEN_SOURCE.summary}</p>
+        <p>{OPEN_SOURCE.adoption}</p>
+        <div className="open-source-install">
+          <code>{OPEN_SOURCE.install}</code>
+          <button type="button" className="icon-button" onClick={copyInstall} aria-label="Copy install command">{copied ? <Check size={17} /> : <Copy size={17} />}</button>
+        </div>
+        <a href={OPEN_SOURCE.url} target="_blank" rel="noreferrer" className="text-button">Find it on npm <ArrowUpRight size={20} /></a>
+      </div>
+      <div className="open-source-facts">
+        <dl className="open-source-stats">
+          {OPEN_SOURCE.stats.map(stat => <div key={stat.label}><dd>{stat.value}</dd><dt>{stat.label}</dt></div>)}
+        </dl>
+        <p className="open-source-asof">npm registry figures, {OPEN_SOURCE.asOf}</p>
+        <ul className="open-source-features">
+          {OPEN_SOURCE.features.map(feature => <li key={feature.title}><strong>{feature.title}</strong><span>{feature.body}</span></li>)}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -93,7 +104,6 @@ function ProjectDialog({ project, onClose }) {
         <div className="button-row">
           {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="button button-primary"><Github size={17} /> View code <ArrowUpRight size={16} /></a>}
           {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="button button-outline">Live site <ExternalLink size={16} /></a>}
-          {project.caseStudy && <a href={`#/work/${project.slug}`} className="button button-outline" onClick={onClose}>Read case study <ArrowRight size={16} /></a>}
           {!project.github && !project.link && <a href={`mailto:${PROFILE.socials.email}?subject=${encodeURIComponent(`Tell me about ${project.title}`)}`} className="button button-primary">Ask me about this project <ArrowUpRight size={16} /></a>}
         </div>
       </div>
@@ -102,35 +112,32 @@ function ProjectDialog({ project, onClose }) {
 }
 
 export function Projects() {
+  const [kind, setKind] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
-  const featured = PROJECTS.filter(project => project.featured);
-  const more = PROJECTS.filter(project => !project.featured);
-  // Projects with a case study open it directly; the rest use the quick-look dialog.
-  const open = project => {
-    if (project.caseStudy) window.location.hash = `#/work/${project.slug}`;
-    else setSelectedProject(project);
-  };
+  const [expanded, setExpanded] = useState(false);
+  const limit = useRowLimit();
+  const matching = PROJECTS.filter(project => kind === 'All' || project.kinds.includes(kind));
+  const visible = expanded ? matching : matching.slice(0, limit);
 
   return (
-    <section id="projects" className="section projects-section" aria-labelledby="projects-title">
+    <section id="projects" className="section work-section" aria-labelledby="projects-title">
       <div className="container">
         <div className="section-heading" data-reveal>
-          <div><span className="eyebrow section-index">01 / BUILT FROM THE GROUND UP</span><h2 id="projects-title">SELECTED WORK<span className="heading-count">({String(featured.length).padStart(2, '0')})</span></h2></div>
+          <div><span className="eyebrow section-index">02 / BUILT FROM THE GROUND UP</span><h2 id="projects-title">SELECTED WORK<span className="heading-count">({pad(PROJECTS.length)})</span></h2></div>
           <p>Full-stack products, AI systems,<br />{' '}and tools built to be used.</p>
         </div>
-        <nav className="project-index" aria-label="Jump to a featured project">{featured.map((project, index) => <a key={project.title} href={`#project-${index + 1}`}><span>0{index + 1}</span>{project.title}<ArrowRight size={13} /></a>)}</nav>
-        <div className="project-gallery">
-          {featured.map((project, index) => (
-            <article className={`gallery-project ${index === 0 ? 'gallery-project-lead' : ''}`} id={`project-${index + 1}`} key={project.title}>
-              <button className={`project-cover ${project.slug ? 'has-mock' : ''}`} onClick={() => open(project)} aria-label={`Explore ${project.title}`}><ProjectVisual project={project} />{project.slug && <span className="cover-mock" aria-hidden="true"><ProjectMockup slug={project.slug} /></span>}<span className="cover-link"><ArrowUpRight size={24} /></span></button>
-              <ProjectBody project={project} index={index} onOpen={() => open(project)} />
-            </article>
-          ))}
+        <div className="chips" role="group" aria-label="Filter projects by type">
+          {KINDS.map(name => <button type="button" key={name} aria-pressed={kind === name} onClick={() => { setKind(name); setExpanded(false); }}>{name}</button>)}
         </div>
-        <div className="project-archive">
-          <div className="project-archive-heading"><h3>MORE THINGS I’VE BUILT</h3><span className="eyebrow">{String(more.length).padStart(2, '0')} MORE PROJECTS</span></div>
-          <div className="archive-grid">{more.map((project, index) => <button className="archive-project" key={project.title} onClick={() => setSelectedProject(project)}><span className="archive-number">{String(index + featured.length + 1).padStart(2, '0')}</span><span><strong>{project.title}</strong><span>{project.tagline}</span></span><ArrowUpRight size={25} /></button>)}</div>
-        </div>
+        <ul className="work-grid" aria-live="polite">
+          {visible.map(project => <WorkCard key={project.title} project={project} index={PROJECTS.indexOf(project)} onOpen={() => setSelectedProject(project)} />)}
+        </ul>
+        {matching.length > limit && (
+          <button type="button" className="work-more" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
+            {expanded ? 'Show fewer' : `Show all ${matching.length} projects`} <ArrowDown size={15} />
+          </button>
+        )}
+        <OpenSource />
       </div>
       {selectedProject && <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />}
     </section>

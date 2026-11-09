@@ -18,29 +18,43 @@ export const ABOUT = {
   statement: 'I’m a software engineer in Jersey City, NJ who likes the whole path — from the first interface a person touches to the last query that answers them.',
   paragraphs: [
     'Most days that means React or Next.js on the front, Node, Express or FastAPI behind it, and Postgres, MongoDB and Redis underneath. Lately a lot of it is AI work: retrieval pipelines, agents with real guardrails, and keeping the parts that have to be predictable in ordinary, testable code.',
-    'I came to it the long way — a B.E. in India, then a year building CRM backends where I learned that tuning a query and adding the right index is often the whole feature. Now I hold an M.S. in Computer Science from Stevens.',
     'I also teach. As a teaching assistant I read a lot of other people’s code every week, which is the fastest way I know to get better at writing my own — and a good excuse to build tools that take the repetitive parts away.',
   ],
-  facts: [
-    { label: 'Based in', value: 'Jersey City, NJ' },
-    { label: 'Education', value: 'M.S. Computer Science' },
-    { label: 'Focused on', value: 'Full-stack + AI systems' },
-    { label: 'Also doing', value: 'Teaching & open source' },
-  ],
   stats: [
-    { value: 71, suffix: 'K+', label: 'rows powering live analytics' },
     { value: 100, suffix: '+', label: 'graduate developers mentored' },
-    { value: 6, suffix: '+', label: 'TAs using my open-source CLI' },
+    { value: 2, suffix: 'K+', label: 'npm downloads of my open-source CLI' },
     { value: 3.86, decimals: 2, suffix: ' / 4.0', label: 'GPA on the M.S.' },
   ],
 };
 
+// Download figures are from the npm registry API, read on 2026-11-09.
+export const OPEN_SOURCE = {
+  name: 'canvas-grade-manager',
+  url: 'https://www.npmjs.com/package/canvas-grade-manager',
+  install: 'npm install canvas-grade-manager',
+  asOf: 'Nov 2026',
+  summary: 'Canvas docks points from a student who submits one second late, even though our course gives a five-minute grace period. Someone had to undo each penalty by hand in SpeedGrader, every lab. I wrote a CLI that does it in one pass, then kept adding the other chores.',
+  adoption: 'Six other teaching assistants picked it up across two semesters of CS 546.',
+  stats: [
+    { value: '2,080', label: 'total downloads' },
+    { value: '1,386', label: 'downloads in launch week' },
+    { value: '13', label: 'releases published' },
+    { value: 'v2.0', label: 'current version' },
+  ],
+  features: [
+    { title: 'Grace-period fix', body: 'Finds submissions within five minutes of the deadline and removes the late penalty in bulk, after showing who is affected and asking to confirm.' },
+    { title: 'Submission download', body: 'Pulls every student’s files for an assignment into a local folder, sorted by name.' },
+    { title: 'Status report', body: 'Graded count, average score, and late count for any assignment.' },
+    { title: 'Grading history', body: 'Progress across all labs in one table, so it is clear what still needs grading.' },
+  ],
+};
+
 export const NAV_LINKS = [
-  { name: 'Projects', href: '#projects' },
   { name: 'About', href: '#about' },
+  { name: 'Work', href: '#projects' },
+  { name: 'Architecture', href: '#architecture' },
   { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
-  { name: 'Education', href: '#education' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -75,7 +89,7 @@ export const EXPERIENCE_DATA = [
     "location": "Hoboken, NJ",
     "description": "Helping graduate developers build better software, and building tools that make teaching it easier.",
     "bullets": [
-      "Published canvas-grade-manager, an npm CLI on the Canvas API with 1,300+ weekly downloads, adopted by 6+ teaching assistants across two semesters.",
+      "Published canvas-grade-manager, an npm CLI on the Canvas API with 2,000+ downloads, adopted by 6+ teaching assistants across two semesters.",
       "Built a grading framework covering HTTP responses, JSON contracts, authentication, and database state, cutting grading turnaround by 80%.",
       "Mentored 100+ graduate students through 80+ weekly code reviews, cutting critical defects by 30%, and debugged 50+ student defects in async, middleware, and auth flows."
     ],
@@ -230,6 +244,8 @@ export const EDUCATION_DATA = [
 export const PROJECTS = [
   {
     "title": "CodePulse",
+    "oneLiner": "Scores a repository’s health on every push, with AI agents that explain why.",
+    "kinds": ["AI", "Dev tools"],
     "tagline": "AI code health platform",
     "category": "Developer tools / AI",
     "description": "Understand the health of a codebase, from every commit to the bigger architectural picture.",
@@ -240,16 +256,6 @@ export const PROJECTS = [
     "slug": "codepulse",
     "caseStudy": {
       "role": "Full stack & AI",
-      "architecture": {
-        "note": "Every push fans out to five parallel jobs and fans back in to one score.",
-        "stages": [
-          { "label": "Trigger", "nodes": ["GitHub push"] },
-          { "label": "Ingest", "nodes": ["Node.js / Express API", "BullMQ queue on Redis"] },
-          { "label": "Analyse in parallel", "nodes": ["Complexity", "Vulnerabilities", "Dead code", "Coverage", "Drift: embeddings + pgvector"], "parallel": true },
-          { "label": "Combine", "nodes": ["Score 0–100", "PostgreSQL + Prisma"] },
-          { "label": "Deliver", "nodes": ["PR health comment", "Live updates: Redis Pub/Sub + Socket.IO", "AI agents: SSE + MCP"] }
-        ]
-      },
       "summary": "Every push to a GitHub repo is scored 0–100 within 60 seconds, with AI agents that explain what changed and why it matters.",
       "problem": "Code quality signals are scattered: complexity, vulnerabilities, dead code, coverage, and architectural drift each live in a different tool, and none of them tie back to the push that moved the needle. CodePulse brings them into one score and one conversation.",
       "decisions": [
@@ -291,6 +297,8 @@ export const PROJECTS = [
   },
   {
     "title": "CareConnect",
+    "oneLiner": "A shared workspace for families and caregivers to coordinate care.",
+    "kinds": ["Full stack"],
     "tagline": "Real-time caregiving platform",
     "description": "A shared place for families and caregivers to coordinate care, stay informed, and act together.",
     "detailedDescription": "A full-stack MERN platform for coordinating tasks, medications, vitals, and documents. Membership-level access control keeps care groups isolated, while real-time communication keeps everyone in sync.",
@@ -300,15 +308,6 @@ export const PROJECTS = [
     "slug": "careconnect",
     "caseStudy": {
       "role": "Full stack · MERN",
-      "architecture": {
-        "note": "Deployed as a four-service Docker stack on AWS EC2.",
-        "stages": [
-          { "label": "Client", "nodes": ["React app"] },
-          { "label": "API", "nodes": ["Express REST API", "JWT + Firebase auth", "Five-role RBAC per membership"] },
-          { "label": "Data & real time", "nodes": ["MongoDB", "Redis cache", "Socket.IO chat + alerts"] },
-          { "label": "Background & storage", "nodes": ["Four background jobs", "S3 with pre-signed URLs"] }
-        ]
-      },
       "summary": "A shared workspace where families and caregivers coordinate tasks, medications, vitals, and documents, with access control that keeps every care group isolated.",
       "problem": "Care is a team effort, but the team is usually split across texts, calls, and paper notes. The platform needed to share sensitive information safely and make sure nothing time-critical, like a missed dose, falls through the gaps.",
       "decisions": [
@@ -362,26 +361,18 @@ export const PROJECTS = [
   },
   {
     "title": "CoMP Ledger",
+    "oneLiner": "Traces AI-generated claims back to the original reporting.",
+    "kinds": ["AI"],
     "tagline": "AI content attribution platform",
     "category": "AI / Research",
     "description": "Trace AI-generated claims back to original reporting, with evidence publishers can inspect.",
     "detailedDescription": "An AWS hackathon-winning content attribution platform that decomposes AI answers into factual claims and evaluates the evidence linking those claims to a publisher’s archive.",
     "impact": "AWS Hackathon Winner",
     "stat": "1st",
-    "statLabel": "AWS Publishing & Media Innovation Hackathon, NYC",
+    "statLabel": "AWS media hackathon, NYC",
     "slug": "comp-ledger",
     "caseStudy": {
       "role": "AWS hackathon winner · Backend & AI pipeline",
-      "architecture": {
-        "note": "Claims are decomposed, verified against five sources, scored, and exported as signed evidence.",
-        "stages": [
-          { "label": "Input", "nodes": ["RSS corpus ingestion", "AI answer", "PostgreSQL + pgvector"] },
-          { "label": "Decompose", "nodes": ["Claude on AWS Bedrock splits the answer into claims"] },
-          { "label": "Verify", "nodes": ["Wikipedia", "Google Search", "OpenAlex", "GDELT", "Wayback Machine"], "parallel": true },
-          { "label": "Score", "nodes": ["Exclusivity score", "Claude judge verdict"] },
-          { "label": "Deliver", "nodes": ["SSE stream to React", "SHA-256 signed export to S3"] }
-        ]
-      },
       "summary": "A platform that tests whether an AI answer drew on a publisher's reporting, and produces evidence the publisher can use in licensing negotiations.",
       "problem": "When an AI answer reflects original reporting, publishers have no way to show it. Proving attribution means separating original reporting from common knowledge, and keeping a record that holds up.",
       "decisions": [
@@ -419,14 +410,77 @@ export const PROJECTS = [
     "link": null
   },
   {
+    "title": "PeerPrep",
+    "oneLiner": "Matches peers for mock interviews, exactly once, under concurrent load.",
+    "kinds": ["Full stack"],
+    "tagline": "Peer mock-interview matching platform",
+    "category": "Backend / Concurrency",
+    "description": "A matchmaking queue that pairs two people for a mock interview and runs the session end to end.",
+    "detailedDescription": "A peer mock-interview platform. You join a queue with a topic, difficulty, and language; a concurrency-safe pairing engine matches you with a compatible peer exactly once, opens a session with a 60-second accept window, and handles accept and decline, no-show timeouts, feedback exchange, and an AI-synthesized debrief.",
+    "impact": "20 simultaneous joins against a real Postgres, paired exactly once.",
+    "stat": "20",
+    "statLabel": "simultaneous joins, paired exactly once",
+    "slug": "peerprep",
+    "noMockup": true,
+    "caseStudy": {
+      "role": "Backend · Java & Spring Boot",
+      "summary": "A mock-interview platform whose pairing engine guarantees that nobody is ever matched into two sessions, even with many concurrent joins across several API instances.",
+      "problem": "Matchmaking looks simple until two servers pick the same waiting person at the same moment. The pairing had to be correct under real concurrency, fair to people who have waited longest, and never leave someone matched with a partner who already closed the tab.",
+      "decisions": [
+        { "title": "The database enforces exactly-once", "body": "A partial unique index allows one waiting queue entry per user. Candidates are locked with SELECT ... FOR UPDATE SKIP LOCKED, and every status change is a conditional update where zero affected rows means “lost the race”, never an error." },
+        { "title": "Advisory locks across instances", "body": "A per-topic Postgres advisory lock serializes the match attempts that could pair with each other, so behaviour is deterministic with several API instances running." },
+        { "title": "The server owns the clock", "body": "Accept windows and no-show detection run as scheduled jobs under ShedLock so exactly one instance fires. Clients never decide that something expired." },
+        { "title": "WebSocket events are hints, REST is truth", "body": "Every STOMP event has a REST equivalent the client refetches, and events are sent only after the transaction commits. A lost frame costs latency, never correctness." },
+        { "title": "AI stays out of the critical path", "body": "The feedback debrief is synthesized in a background job with three bounded retries. The human feedback flow never waits on the model." }
+      ],
+      "results": [
+        { "value": "20", "label": "simultaneous joins in the concurrency test" },
+        { "value": "1", "label": "session per user, enforced by the database" },
+        { "value": "60s", "label": "server-authoritative accept window" },
+        { "value": "3", "label": "bounded retries for the AI debrief" }
+      ]
+    },
+    "featured": true,
+    "tech": ["Java 21", "Spring Boot", "PostgreSQL", "Redis", "WebSocket (STOMP)", "Spring AI", "React", "TypeScript", "Testcontainers", "Docker"],
+    "features": [
+      "Exactly-once pairing with a partial unique index, FOR UPDATE SKIP LOCKED, and conditional updates.",
+      "Search widening from an exact match to one level either side after 30 seconds, and any level after two minutes.",
+      "Two-round interview room with swapped roles and a single-writer shared pad mirrored live.",
+      "JWT access tokens with rotating refresh tokens and reuse detection.",
+      "Integration tests on real Postgres and Redis through Testcontainers."
+    ],
+    "github": null,
+    "link": null
+  },
+  {
     "title": "PromptStudio",
+    "oneLiner": "Turns a plain-language prompt into a running Next.js app.",
+    "kinds": ["AI", "Full stack"],
     "tagline": "Agentic AI App Generator",
     "description": "Agentic AI platform that generates and deploys functional Next.js applications from natural language prompts.",
-    "detailedDescription": "Built an agentic AI platform that generates and deploys functional Next.js applications from natural language prompts using a agent workflow orchestrated by Inngest and powered by Google Gemini 2.5 Flash.",
-    "impact": "Generates production-ready Next.js apps from prompts in under 60 seconds",
-    "stat": "<60s",
-    "statLabel": "from prompt to a working Next.js app",
+    "detailedDescription": "Built an agentic AI platform that generates and deploys functional Next.js applications from natural language prompts using an agent workflow orchestrated by Inngest and powered by Google Gemini 2.5 Flash.",
+    "impact": "Generates production-ready Next.js apps inside isolated E2B sandboxes",
+    "stat": "E2B",
+    "statLabel": "isolated sandbox per app generation",
     "slug": "promptstudio",
+    "caseStudy": {
+      "role": "Full stack & AI agents",
+      "summary": "Describe an app in plain language and an agent writes it, runs it in an isolated sandbox, and hands back a working Next.js preview in under 60 seconds.",
+      "problem": "Generating code is the easy half. The hard half is running code nobody has reviewed, keeping a long multi-step generation alive when something fails, and letting people iterate without losing the version that worked.",
+      "decisions": [
+        { "title": "A workflow, not a request", "body": "Generation runs as an event-driven Inngest workflow rather than inside an HTTP request, so a long agent run is durable and can recover from failures." },
+        { "title": "Untrusted code stays in a sandbox", "body": "Every run gets its own E2B sandbox booted from a Next.js template. The agent writes, executes, and debugs multi-file apps there, and the preview is served from the sandbox URL." },
+        { "title": "An agent with three tools", "body": "Gemini 2.5 Flash works through file-write, file-read, and terminal tools, so it can read command output and fix its own errors instead of producing code once and hoping." },
+        { "title": "Versions instead of overwrites", "body": "Each result is stored as a fragment linked to its message in PostgreSQL through Prisma, which gives time-travel rollback and lets a session evolve step by step." },
+        { "title": "Built to be a product", "body": "Clerk authentication, Stripe billing, and credit-based rate limiting sit in front of the agent." }
+      ],
+      "results": [
+        { "value": "<60s", "label": "prompt to working app" },
+        { "value": "3", "label": "agent tools in the sandbox" },
+        { "value": "1", "label": "isolated sandbox per run" },
+        { "value": "∞", "label": "versions to roll back to" }
+      ]
+    },
     "metrics": [
       "AI-Powered",
       "Agentic",
@@ -463,6 +517,8 @@ export const PROJECTS = [
   },
   {
     "title": "Vibe Code Editor",
+    "oneLiner": "A full development environment inside one browser tab.",
+    "kinds": ["Dev tools"],
     "tagline": "AI-Powered Web IDE",
     "description": "Cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator.",
     "detailedDescription": "Developed a cloud-native IDE with Next.js, WebContainers, Monaco Editor, and integrated terminal emulator, enabling secure execution of 5+ stacks via WASM isolation.",
@@ -470,6 +526,23 @@ export const PROJECTS = [
     "stat": "5+",
     "statLabel": "stacks running in the browser",
     "slug": "vibe-code-editor",
+    "caseStudy": {
+      "role": "Full stack · Cloud IDE",
+      "summary": "A development environment that runs entirely in a browser tab: editor, terminal, Node.js runtime, live preview, and an AI assistant, with no local setup.",
+      "problem": "An online IDE normally means running other people’s code on your servers, which is expensive to operate and risky to secure. The goal was a real development environment where the code never leaves the user’s browser.",
+      "decisions": [
+        { "title": "Run the code in the browser", "body": "WebContainers run Node.js, the package manager, and the dev server inside the tab. WASM isolation gives secure execution for 5+ stacks without a server-side sandbox to operate." },
+        { "title": "Familiar tools, not custom ones", "body": "Monaco provides the editing model people know from VS Code and xterm.js provides a real terminal, next to a file explorer with create, rename, and delete." },
+        { "title": "AI through Ollama", "body": "Inline completions and a chat panel call models served through Ollama from Next.js routes, accelerating coding workflows by about 30%." },
+        { "title": "Projects that persist", "body": "Playgrounds and their file trees are stored in MongoDB through Prisma, with Auth.js handling accounts, so a project reopens where it was left." }
+      ],
+      "results": [
+        { "value": "5+", "label": "stacks running in the browser" },
+        { "value": "~30%", "label": "faster with AI completions" },
+        { "value": "0", "label": "servers executing user code" },
+        { "value": "1", "label": "browser tab for everything" }
+      ]
+    },
     "metrics": [
       "AI-Powered",
       "Cloud-Native",
@@ -502,7 +575,83 @@ export const PROJECTS = [
     }
   },
   {
+    "title": "Ember",
+    "oneLiner": "A task and practice log I can update from inside Claude Code.",
+    "kinds": ["Dev tools"],
+    "tagline": "Task and work log with an MCP server",
+    "category": "Developer tools / MCP",
+    "description": "A single-user task and work log that an AI coding assistant can read and write through MCP.",
+    "detailedDescription": "A personal task and work log built so tasks can be added and completed from inside Claude Code without switching windows. A Next.js app and an MCP server share one PostgreSQL database, so whatever is written from the editor shows up in the UI on the next load. It also tracks LeetCode practice with spaced review.",
+    "impact": "One database shared by the web UI and the MCP server, with no state kept anywhere else.",
+    "stat": "MCP",
+    "statLabel": "tasks logged from inside Claude Code",
+    "featured": false,
+    "tech": ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "MCP SDK", "Clerk", "Tailwind CSS", "Docker"],
+    "features": [
+      "MCP tools for adding, listing, and completing tasks and logging notes from the editor.",
+      "The UI and the MCP server share one Drizzle client and one database; neither keeps its own cache.",
+      "LeetCode practice tracking with SM-2-style review scheduling applied on every attempt.",
+      "An idempotent sync that pulls recent accepted submissions and fails without touching the database.",
+      "Rows are never deleted; status changes instead, so the full work history survives."
+    ],
+    "github": "https://github.com/HarshilModh/Ember",
+    "link": null
+  },
+  {
+    "title": "Retentia",
+    "oneLiner": "A RAG tutor that adapts to what each learner has and hasn’t mastered.",
+    "kinds": ["AI"],
+    "tagline": "Personalized RAG learning tutor",
+    "category": "AI / Agents",
+    "description": "A tutoring agent that teaches, checks, grades, and adapts, with a memory of each learner.",
+    "detailedDescription": "A prototype learning tutor that runs a teach, check, grade, and adapt loop. A LangGraph ReAct agent retrieves from two places on each turn: a shared subject knowledge base for what to teach, and a per-learner store for how to teach this person. Grading writes back to a learner model that decides what comes next.",
+    "impact": "The model judges an answer; mastery and review scheduling are plain, tested code.",
+    "stat": "7",
+    "statLabel": "agent tools, two retrieval sources",
+    "featured": false,
+    "tech": ["FastAPI", "LangGraph", "Python", "Gemini", "Qdrant", "PostgreSQL", "SQLAlchemy", "React", "TypeScript"],
+    "features": [
+      "A LangGraph ReAct agent with seven tools for retrieval, memory, questioning, grading, and choosing the next concept.",
+      "Dual retrieval in Qdrant: a subject knowledge base plus a per-learner persona store.",
+      "Mastery is an exponential moving average and review intervals double with each streak, both in deterministic code.",
+      "A failed answer resets the concept to a near-term review instead of waiting out the schedule.",
+      "Streaming chat with a progress dashboard showing mastery per concept."
+    ],
+    "github": "https://github.com/HarshilModh/Retentia",
+    "link": null
+  }
+];
+
+export const ADDITIONAL_PROJECTS = [
+  {
+    "title": "Ask Harshil",
+    "oneLiner": "A chat agent about me that cites its source or refuses to answer.",
+    "kinds": ["AI"],
+    "tagline": "Grounded portfolio chat agent",
+    "category": "AI / Agents",
+    "description": "A grounded chat agent that answers questions about me, shares the right resume, and can book a meeting.",
+    "detailedDescription": "A chat agent constrained to a knowledge base of markdown files. Every factual claim must carry a citation to a chunk that retrieval actually returned on that turn, or the agent refuses. It can also hand over contact details, serve a resume, and offer a booking through Cal.com.",
+    "impact": "Every factual claim carries a citation that is checked by set membership, with no second model call.",
+    "stat": "100%",
+    "statLabel": "of claims cited, or it refuses",
+    "featured": false,
+    "tech": ["FastAPI", "LangGraph", "Python", "Gemini", "BM25", "React", "Cal.com", "Upstash"],
+    "features": [
+      "A LangGraph flow of guard, agent, tools, ground, and respond, with a degrade path for rate limits.",
+      "Grounding is a set-membership check on cited chunk ids, so it costs no extra model request.",
+      "BM25 retrieval over about 60 chunks instead of a vector database, tuned for uneven chunk lengths.",
+      "Contact and booking are captured through UI components, so personal details never enter a model payload.",
+      "A daily request budget is checked on every agent step, and quota errors fall back to the static profile."
+    ],
+    "github": null,
+    "link": null
+  },
+  {
     "title": "Lumina",
+    "oneLiner": "Cloud storage for visual assets with edge-cached delivery.",
+    "kinds": ["Full stack"],
+    "stat": "60%",
+    "statLabel": "faster image delivery",
     "tagline": "High-Definition Cloud Storage",
     "description": "Next-generation cloud storage platform for visual assets with high-definition rendering and smart tagging.",
     "detailedDescription": "Developed a next-generation cloud storage platform for visual assets with high-definition rendering, smart tagging, hierarchical folders, and a modern glassmorphic dashboard.",
@@ -540,6 +689,10 @@ export const PROJECTS = [
   },
   {
     "title": "Stevens Hub",
+    "oneLiner": "A campus portal with forums, course reviews, and maps.",
+    "kinds": ["Full stack"],
+    "stat": "~90%",
+    "statLabel": "less unauthorized access",
     "tagline": "Campus Social Ecosystem",
     "description": "Full-stack student portal featuring Reddit-style forums, course reviews, and OAuth integration.",
     "detailedDescription": "Spearheaded a full-stack student portal used by 10+ testers, with forums, reviews, and resource directories.",
@@ -575,6 +728,10 @@ export const PROJECTS = [
   },
   {
     "title": "Interview Master",
+    "oneLiner": "Real-time AI voice interviews with scored feedback.",
+    "kinds": ["AI"],
+    "stat": "<500ms",
+    "statLabel": "voice response latency",
     "tagline": "AI Voice Interview Agent",
     "description": "Real-time AI interview platform with bidirectional voice conversations and automated feedback.",
     "detailedDescription": "Architected a real-time AI interview platform with Next.js 14, integrating Vapi.ai and Google Gemini for bidirectional voice conversations with sub-500ms latency.",
@@ -613,23 +770,19 @@ export const PROJECTS = [
 
 export const SKILL_GROUPS = [
   {
-    "name": "Build interfaces",
-    "items": ["React", "Next.js", "Angular", "TypeScript", "JavaScript", "Tailwind CSS", "shadcn/ui", "TanStack Query", "Recharts"]
+    "name": "Interfaces",
+    "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"]
   },
   {
-    "name": "Design APIs & data",
-    "items": ["Node.js", "Express", "FastAPI", "Python", "Java", "SQL", "PostgreSQL", "MongoDB", "Redis", "Prisma", "BullMQ", "Socket.IO", "GraphQL"]
+    "name": "APIs & data",
+    "items": ["Node.js", "Express", "FastAPI", "Python", "Java", "Spring Boot", "PostgreSQL", "MongoDB", "Redis", "Prisma", "BullMQ", "Socket.IO"]
   },
   {
-    "name": "Ship AI features",
-    "items": ["OpenAI API", "Claude", "Gemini", "RAG", "MCP", "LangGraph", "LangChain", "Embeddings", "pgvector", "Qdrant"]
+    "name": "AI systems",
+    "items": ["OpenAI API", "Claude", "Gemini", "RAG", "MCP", "Embeddings", "pgvector"]
   },
   {
-    "name": "Run in production",
-    "items": ["AWS EC2 / S3 / Bedrock", "Azure Container Apps", "Docker", "GitHub Actions", "CI/CD", "Linux", "pytest"]
-  },
-  {
-    "name": "Secure & monetize",
-    "items": ["Clerk", "Firebase Auth", "JWT", "OAuth", "RBAC", "HMAC webhooks", "Stripe"]
+    "name": "Ship & run",
+    "items": ["AWS EC2 / S3 / Bedrock", "Azure Container Apps", "Docker", "GitHub Actions", "pytest", "Clerk", "Stripe"]
   }
 ];

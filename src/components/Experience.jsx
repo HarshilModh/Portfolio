@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
-import { ADDITIONAL_EXPERIENCE, EXPERIENCE_DATA } from '../constants/data';
+import { ADDITIONAL_EXPERIENCE, EDUCATION_DATA, EXPERIENCE_DATA } from '../constants/data';
 import { useCountUp } from '../utils/useCountUp';
 
 // Metrics read like "71K+" or "80%": count the leading number, keep the unit.
@@ -11,6 +11,25 @@ function Metric({ metric }) {
   const [ref, display] = useCountUp(Number(number) || 0, decimals);
   if (!number) return <strong>{metric}</strong>;
   return <strong ref={ref}>{display}<span>{unit}</span></strong>;
+}
+
+const LEAD_BULLETS = 2;
+
+// The two strongest bullets are always visible; the rest sit behind a toggle so the roles read as a set.
+function Highlights({ role }) {
+  const [open, setOpen] = useState(false);
+  const extra = role.bullets.length - LEAD_BULLETS;
+  const bullets = open ? role.bullets : role.bullets.slice(0, LEAD_BULLETS);
+  return (
+    <div className="experience-highlights">
+      <ul className="experience-bullets" id={`role-highlights-${role.id}`}>{bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+      {extra > 0 && (
+        <button type="button" className={`experience-more ${open ? 'is-open' : ''}`} aria-expanded={open} aria-controls={`role-highlights-${role.id}`} onClick={() => setOpen(!open)}>
+          {open ? 'Show less' : `Show ${extra} more`} <ArrowDown size={15} />
+        </button>
+      )}
+    </div>
+  );
 }
 
 export function Experience() {
@@ -23,7 +42,7 @@ export function Experience() {
   return (
     <section id="experience" className="section container" aria-labelledby="experience-title">
       <div className="section-heading" data-reveal>
-        <div><span className="eyebrow section-index">03 / THE EXPERIENCE SO FAR</span><h2 id="experience-title">WORK &<br />{' '}EXPERIENCE.</h2></div>
+        <div><span className="eyebrow section-index">04 / THE EXPERIENCE SO FAR</span><h2 id="experience-title">WORK &<br />{' '}EXPERIENCE.</h2></div>
         <p>Teams I’ve worked with.<br />{' '}Problems I’ve helped solve.</p>
       </div>
 
@@ -48,10 +67,23 @@ export function Experience() {
               </div>
             </div>
             <p className="experience-summary">{role.description}</p>
-            <ul className="experience-bullets">{role.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+            <Highlights role={role} />
             <div className="tags tags-pill">{role.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
           </article>
         ))}
+      </div>
+
+      <div className="education" id="education" data-reveal>
+        <h3 className="eyebrow">Education</h3>
+        <ul>
+          {EDUCATION_DATA.map(education => (
+            <li key={education.id}>
+              <span className="eyebrow">{education.year}</span>
+              <div><strong>{education.degree}</strong><span>{education.school} · {education.location}</span></div>
+              <p>{[education.details, education.award].filter(Boolean).join(' · ')}</p>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <details className="earlier-experience" data-reveal>

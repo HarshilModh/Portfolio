@@ -3,16 +3,14 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { NAV_LINKS, PROFILE, PROJECTS } from './constants/data';
 import { Hero } from './components/Hero';
-import { TechTicker } from './components/TechTicker';
 import { About } from './components/About';
 import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
-import { Education } from './components/Education';
+import { Architecture } from './components/Architecture';
 import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
 import { CaseStudy } from './components/CaseStudy';
 import { useReveal } from './utils/useReveal';
-import { useScrollScene } from './utils/useScrollScene';
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
@@ -22,14 +20,12 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.25 });
-  const sceneEnabled = useScrollScene();
   const [hash, setHash] = useState(() => window.location.hash);
   const requested = hash.startsWith('#/work/') ? hash.slice(7) : null;
   const slug = PROJECTS.some(project => project.caseStudy && project.slug === requested) ? requested : null;
-  useReveal(`${sceneEnabled ? 'scene' : 'static'}-${slug ?? 'home'}`);
+  useReveal(slug ?? 'home');
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash);
@@ -55,13 +51,12 @@ export default function App() {
     }, { rootMargin: '-15% 0px -60% 0px' });
     document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
     return () => observer.disconnect();
-  }, [sceneEnabled, slug]);
+  }, [slug]);
 
   useEffect(() => {
     const onScroll = () => {
       if (window.scrollY < 100) setActiveSection('home');
       setScrolled(window.scrollY > 14);
-      setPastHero(window.scrollY > 420);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -70,7 +65,6 @@ export default function App() {
 
   return (
     <>
-      <div className="ambient" aria-hidden="true" />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container header-inner">
@@ -90,26 +84,15 @@ export default function App() {
         </div>
         <motion.span className="scroll-progress" style={{ scaleX: progress }} aria-hidden="true" />
       </header>
-      <nav className={`section-rail ${pastHero ? 'is-visible' : ''}`} aria-label="Section shortcuts" aria-hidden={!pastHero} inert={pastHero ? undefined : ''}>
-        {NAV_LINKS.map(link => {
-          const isActive = activeSection === link.href.slice(1);
-          return (
-            <a key={link.href} href={link.href} className={isActive ? 'active' : ''} aria-current={isActive ? 'location' : undefined}>
-              <span className="rail-label">{link.name}</span><span className="rail-dot" />
-            </a>
-          );
-        })}
-      </nav>
       <main id="main">
         {slug ? <CaseStudy key={slug} slug={slug} /> : (
           <>
             <Hero />
-            <TechTicker />
-            <Projects />
             <About />
+            <Projects />
+            <Architecture />
             <Experience />
             <Skills />
-            <Education />
             <Contact />
           </>
         )}

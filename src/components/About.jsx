@@ -47,7 +47,7 @@ export function About() {
         <div className="about-grid">
           <div className="about-lead" data-reveal>
             <motion.div style={reducedMotion ? undefined : { y: leadY }}>
-              <span className="eyebrow section-index">02 / A LITTLE ABOUT ME</span>
+              <span className="eyebrow section-index">01 / A LITTLE ABOUT ME</span>
               <h2 id="about-title">WHAT I<br />{' '}ACTUALLY DO.</h2>
             </motion.div>
           </div>
@@ -55,11 +55,7 @@ export function About() {
             <motion.div style={reducedMotion ? undefined : { y: copyY }}>
               <ScrollStatement text={ABOUT.statement} />
               {ABOUT.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
-              <dl className="about-facts">
-                {ABOUT.facts.map(fact => (
-                  <div key={fact.label}><dt className="eyebrow">{fact.label}</dt><dd>{fact.value}</dd></div>
-                ))}
-              </dl>
+              <p className="about-open"><span className="status-dot" /> Open to software engineering roles</p>
             </motion.div>
           </div>
         </div>

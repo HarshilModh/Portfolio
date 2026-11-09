@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import { PROJECTS } from '../constants/data';
-import { ProjectVisual } from './Projects';
+import { BLUEPRINTS } from '../constants/blueprints';
 import { ProjectMockup } from './ProjectMockup';
-import { ArchDiagram } from './ArchDiagram';
+import { Blueprint } from './Blueprint';
 import './CaseStudy.css';
 
 const STUDIES = PROJECTS.filter(project => project.caseStudy);
@@ -20,6 +20,7 @@ export function CaseStudy({ slug }) {
   }, [project.title]);
 
   const { caseStudy } = project;
+  const blueprint = BLUEPRINTS[project.slug];
   return (
     <article className="case-study" aria-labelledby="case-title">
       <div className="container">
@@ -30,7 +31,6 @@ export function CaseStudy({ slug }) {
           <p className="case-summary">{caseStudy.summary}</p>
           <p className="case-role eyebrow">{caseStudy.role}</p>
         </header>
-        <div className="case-visual"><ProjectVisual project={project} /></div>
 
         <section className="case-results" aria-label="Results">
           {caseStudy.results.map(result => (
@@ -43,15 +43,10 @@ export function CaseStudy({ slug }) {
           <p className="case-lead">{caseStudy.problem}</p>
         </section>
 
-        <section className="case-block">
-          <h2 className="eyebrow">The interface</h2>
-          <ProjectMockup slug={project.slug} />
-        </section>
-
-        {caseStudy.architecture && (
-          <section className="case-block">
-            <h2 className="eyebrow">Architecture</h2>
-            <ArchDiagram architecture={caseStudy.architecture} />
+        {blueprint && (
+          <section className="case-block case-block-wide">
+            <h2 className="eyebrow">How it works</h2>
+            <Blueprint blueprint={blueprint} />
           </section>
         )}
 
@@ -67,12 +62,25 @@ export function CaseStudy({ slug }) {
           </ol>
         </section>
 
+        {!project.noMockup && (
+          <section className="case-block">
+            <h2 className="eyebrow">The interface</h2>
+            <ProjectMockup slug={project.slug} />
+          </section>
+        )}
+
         <section className="case-block">
           <h2 className="eyebrow">Built with</h2>
-          <div className="tags tags-pill">{project.tech.map(tech => <span key={tech}>{tech}</span>)}</div>
-          <div className="button-row case-actions">
-            {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="button button-primary"><Github size={17} /> View code <ArrowUpRight size={16} /></a>}
-            {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="button button-outline">Live site <ExternalLink size={16} /></a>}
+          <div>
+            {blueprint
+              ? <dl className="case-stack">{blueprint.stack.map(group => (
+                <div key={group.layer}><dt>{group.layer}</dt><dd className="tags tags-pill">{group.items.map(item => <span key={item}>{item}</span>)}</dd></div>
+              ))}</dl>
+              : <div className="tags tags-pill">{project.tech.map(tech => <span key={tech}>{tech}</span>)}</div>}
+            <div className="button-row case-actions">
+              {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="button button-primary"><Github size={17} /> View code <ArrowUpRight size={16} /></a>}
+              {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="button button-outline">Live site <ExternalLink size={16} /></a>}
+            </div>
           </div>
         </section>
 
