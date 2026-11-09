@@ -18,10 +18,10 @@ export function Architecture() {
           <div><span className="eyebrow section-index">03 / HOW THEY’RE BUILT</span><h2 id="architecture-title">UNDER THE HOOD.</h2></div>
           <p>Pick a project and follow one request<br />{' '}through the system.</p>
         </div>
-        <div className="chips" role="group" aria-label="Choose a project">
+        <div className="chips" role="group" aria-label="Choose a project" data-reveal>
           {SYSTEMS.map(item => <button type="button" key={item.slug} aria-pressed={item.slug === slug} onClick={() => setSlug(item.slug)}>{item.title}</button>)}
         </div>
-        <Blueprint key={slug} blueprint={BLUEPRINTS[slug]} />
+        <div data-reveal style={{ '--reveal-delay': '120ms' }}><Blueprint key={slug} blueprint={BLUEPRINTS[slug]} /></div>
         <a className="text-button hood-more" href={`#/work/${slug}`}>Read the {project.title} case study <ArrowRight size={17} /></a>
       </div>
     </section>

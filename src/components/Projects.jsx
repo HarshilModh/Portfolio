@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Copy, ExternalLink, Github, X } from 'lucide-react';
-import { OPEN_SOURCE, PROJECTS, PROFILE } from '../constants/data';
+import { ADDITIONAL_PROJECTS, OPEN_SOURCE, PROJECTS as LEAD_PROJECTS, PROFILE } from '../constants/data';
+import { useReveal } from '../utils/useReveal';
 import './Projects.css';
 
 const pad = number => String(number).padStart(2, '0');
+// The lead projects fill the first two rows; the rest appear behind "Show all".
+const PROJECTS = [...LEAD_PROJECTS, ...ADDITIONAL_PROJECTS];
 
 // Two rows at every width: four columns on desktop, two on tablet, a short list on phones.
 function useRowLimit() {
@@ -21,11 +24,11 @@ function useRowLimit() {
 const KINDS = ['All', ...new Set(PROJECTS.flatMap(project => project.kinds))];
 
 // Every project uses the same card: one number, one line, one way in.
-function WorkCard({ project, index, onOpen }) {
+function WorkCard({ project, index, position, onOpen }) {
   const Tag = project.caseStudy ? 'a' : 'button';
   const action = project.caseStudy ? { href: `#/work/${project.slug}` } : { type: 'button', onClick: onOpen };
   return (
-    <li>
+    <li data-reveal style={{ '--n': position % 4 }}>
       <Tag className="work-card" {...action}>
         <span className="work-cover">
           <span className="work-cover-top"><span>{pad(index + 1)}</span><span>{project.kinds.join(' · ')}</span></span>
@@ -118,6 +121,8 @@ export function Projects() {
   const limit = useRowLimit();
   const matching = PROJECTS.filter(project => kind === 'All' || project.kinds.includes(kind));
   const visible = expanded ? matching : matching.slice(0, limit);
+  // Filtering and expanding mount new cards, which need observing too.
+  useReveal(`${kind}-${expanded}-${limit}`);
 
   return (
     <section id="projects" className="section work-section" aria-labelledby="projects-title">
@@ -126,11 +131,11 @@ export function Projects() {
           <div><span className="eyebrow section-index">02 / BUILT FROM THE GROUND UP</span><h2 id="projects-title">SELECTED WORK<span className="heading-count">({pad(PROJECTS.length)})</span></h2></div>
           <p>Full-stack products, AI systems,<br />{' '}and tools built to be used.</p>
         </div>
-        <div className="chips" role="group" aria-label="Filter projects by type">
+        <div className="chips" role="group" aria-label="Filter projects by type" data-reveal>
           {KINDS.map(name => <button type="button" key={name} aria-pressed={kind === name} onClick={() => { setKind(name); setExpanded(false); }}>{name}</button>)}
         </div>
         <ul className="work-grid" aria-live="polite">
-          {visible.map(project => <WorkCard key={project.title} project={project} index={PROJECTS.indexOf(project)} onOpen={() => setSelectedProject(project)} />)}
+          {visible.map((project, position) => <WorkCard key={project.title} project={project} position={position} index={PROJECTS.indexOf(project)} onOpen={() => setSelectedProject(project)} />)}
         </ul>
         {matching.length > limit && (
           <button type="button" className="work-more" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
